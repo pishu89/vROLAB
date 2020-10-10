@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="7e5eebdf-0401-42f6-adeb-da9a735596ac" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Invoke a Workflow Asynchronously</display-name>
+    <description>This workflow illustrates how to call a workflow asynchronously.</description>
+    <position y="50.0" x="100.0"/>
+    <input/>
+    <output/>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="59.6116135138184" x="396.116135138184"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="task" launched-workflow-id="d99efb0b-7501-4328-b5ea-0aa9addc91f0" comparator="0">
+        <display-name>Child workflow</display-name>
+        <script encoded="false">//Auto generated script, cannot be modified !
+var workflowToLaunch = Server.getWorkflowWithId("d99efb0b-7501-4328-b5ea-0aa9addc91f0");
+if (workflowToLaunch == null) {
+	throw "Workflow not found";
+}
+
+var workflowParameters = new Properties();
+wfToken = workflowToLaunch.execute(workflowParameters);
+</script>
+        <in-binding/>
+        <out-binding>
+            <bind name="wfToken" type="WorkflowToken"/>
+        </out-binding>
+        <description>Start an asynchronous workflow.</description>
+        <position y="50.0" x="160.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item0" type="task" comparator="0">
+        <display-name>Scriptable task</display-name>
+        <script encoded="false">System.log("Here we could check the status of the asynchronously launched workflow..."); &#13;
+System.log("... If only we knew how to perform binding. :-(");</script>
+        <in-binding/>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="54.805806756909206" x="268.05806756909203"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

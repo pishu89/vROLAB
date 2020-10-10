@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="cb8fda04-3eca-4691-bf5c-3d46e54a1eda" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Create hostname with configuration elements</display-name>
+    <description>Create a hostname using variables from a configuration element.</description>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="nextNum" type="number">
+            <description>Machine number</description>
+        </param>
+    </input>
+    <output/>
+    <attrib name="cluster" type="string" conf-id="3c135d85-f714-46bc-8ea8-1452122ca2b4" conf-key="cluster"/>
+    <attrib name="businessGroup" type="string" conf-id="3c135d85-f714-46bc-8ea8-1452122ca2b4" conf-key="businessGroup"/>
+    <attrib name="operatingSystem" type="string" conf-id="3c135d85-f714-46bc-8ea8-1452122ca2b4" conf-key="operatingSystem"/>
+    <attrib name="hostname" type="string">
+        <value encoded="n"></value>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="390.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="task" comparator="0">
+        <display-name>Generate hostname</display-name>
+        <script encoded="false">hostname = cluster + "-" + businessGroup + "-" + operatingSystem + "-" + nextNum;</script>
+        <in-binding>
+            <bind name="cluster" type="string" export-name="cluster"/>
+            <bind name="businessGroup" type="string" export-name="businessGroup"/>
+            <bind name="operatingSystem" type="string" export-name="operatingSystem"/>
+            <bind name="nextNum" type="number" export-name="nextNum"/>
+        </in-binding>
+        <out-binding>
+            <bind name="hostname" type="string" export-name="hostname"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="150.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item0" type="task" prototype-id="system-log" interaction="l" comparator="0">
+        <display-name>Log Hostname</display-name>
+        <script encoded="false">//Auto-generated script
+System.log(text);</script>
+        <in-binding>
+            <bind name="text" type="string" export-name="hostname">
+                <description>The text to log</description>
+            </bind>
+        </in-binding>
+        <out-binding/>
+        <description>Log the input text to the console log with the level "log".</description>
+        <position y="60.0" x="245.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

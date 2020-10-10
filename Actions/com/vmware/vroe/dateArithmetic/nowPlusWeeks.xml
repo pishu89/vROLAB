@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="nowPlusWeeks" result-type="Date" api-version="6.0.0" id="1dfb14b9-eb35-44e5-897a-1e1f6a9897bf" version="0.0.0" allowed-operations="vfe" category-name="com.vmware.vroe.dateArithmetic">
+  <description><![CDATA[Given a number of weeks as input, this action returns a Date object set to NOW plus that many weeks.]]></description>
+  <param n="weeks" t="number"><![CDATA[Number of weeks to add]]></param>
+  <script encoded="false"><![CDATA[millisecondsPerSecond = 1000;
+secondsPerMinute = 60;
+minutesPerHour = 60;
+hoursPerDay = 24;
+daysPerWeek = 7;
+
+var now = new Date();
+return (new Date(now.getTime() + (weeks * daysPerWeek * hoursPerDay * minutesPerHour * secondsPerMinute * millisecondsPerSecond)));]]></script>
+</dunes-script-module>

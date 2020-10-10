@@ -1,0 +1,3 @@
+if (curVM.summary.config.template)
+    return false;
+return (curVM.summary.config.numCpu >= cpuCount);

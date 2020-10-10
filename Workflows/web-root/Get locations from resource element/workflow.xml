@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="2f5a6118-456c-4cc8-a260-4b57eab0c574" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Get locations from resource element]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <attrib name="locationsTextfile" type="ResourceElement" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/ResourceElement?id='c959d8dc-98ac-4542-b618-352ce15042d7'&dunesName='ResourceElement']]></value>
+  </attrib>
+  <attrib name="locationsAll" type="Array/string" read-only="false">
+    <value encoded="n"><![CDATA[#{##}#]]></value>
+    <description><![CDATA[Array of locations]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="50.0" x="410.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item2" type="task">
+    <display-name><![CDATA[Fill Array from Textfile]]></display-name>
+    <script encoded="false"><![CDATA[var resElementText = locationsTextfile.getContentAsMimeAttachment().content;
+locationsAll = [];
+locationsAll = resElementText.split(/\r\n|\r|\n/);]]></script>
+    <in-binding>
+      <bind name="locationsTextfile" type="ResourceElement" export-name="locationsTextfile"/>
+    </in-binding>
+    <out-binding>
+      <bind name="locationsAll" type="Array/string" export-name="locationsAll"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="170.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item0" type="task">
+    <display-name><![CDATA[Display locations]]></display-name>
+    <script encoded="false"><![CDATA[for (var i=0; i<locationsAll.length; i++) {
+    System.log(locationsAll[i]);
+}]]></script>
+    <in-binding>
+      <bind name="locationsAll" type="Array/string" export-name="locationsAll"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="275.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

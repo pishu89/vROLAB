@@ -1,0 +1,19 @@
+formatVersion: 1
+inputs: {}
+resources:
+  Cloud_Machine_1:
+    type: Cloud.Machine
+    properties:
+      name: PhotonOS
+      image: VMW-Photon
+      flavor: VMW-Small
+      customizationSpec: Lin-Cust
+      userDefinedString: alpha
+      userDefinedNumber: 1234567890
+      networks:
+        - network: '${resource.Cloud_vSphere_Network_1.id}'
+  Cloud_vSphere_Network_1:
+    type: Cloud.vSphere.Network
+    properties:
+      name: VMW-Production
+      networkType: existing

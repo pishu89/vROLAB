@@ -1,0 +1,3 @@
+for (var i=0; i<locationsAll.length; i++) {
+    System.log(locationsAll[i]);
+}

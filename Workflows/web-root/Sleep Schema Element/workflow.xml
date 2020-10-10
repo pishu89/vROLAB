@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="33f89450-95b5-4c71-b7f3-dd1bffdcb64b" version="0.0.0" api-version="6.0.0" allowed-operations="evf" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Sleep Schema Element]]></display-name>
+  <description><![CDATA[This workflow illustrates how to use the Sleep schema element.]]></description>
+  <position y="97.8984375" x="104.0"/>
+  <input>
+    <param name="secondsToSleep" type="number">
+      <description><![CDATA[Number of seconds to sleep]]></description>
+    </param>
+  </input>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="97.8984375" x="364.0"/>
+  </workflow-item>
+  <workflow-item name="item1" prototype-id="sleep" out-name="item0" content-mode="x" type="task">
+    <display-name><![CDATA[Sleep]]></display-name>
+    <script encoded="false"><![CDATA[//Auto-generated script
+if ( sleepTime !== null )  {
+	System.sleep(sleepTime * 1000);
+}else  {
+	throw "'sleepTime' is NULL"; 
+}]]></script>
+    <in-binding>
+      <bind name="sleepTime" type="number" export-name="secondsToSleep">
+        <description><![CDATA[Time to sleep in seconds]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Sleep a given number of seconds.]]></description>
+    <position y="107.8984375" x="192.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="751ff7c8-ea62-4b36-9076-fa0f0507316d" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Create VM Folders]]></display-name>
+  <description><![CDATA[This workflow illustrates how to create multiple VM folders. In doing so, the student applies the "binding" technique.]]></description>
+  <position y="60.0" x="120.0"/>
+  <attrib name="parentFolder" type="VC:VmFolder" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:group-v22'&dunesName='VC:VmFolder']]></value>
+    <description><![CDATA[Existing VM folder where the new VM folder will be placed]]></description>
+  </attrib>
+  <attrib name="firstVmFolderName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[My VMs]]></value>
+    <description><![CDATA[Name of the first VM folder]]></description>
+  </attrib>
+  <attrib name="firstVmFolder" type="VC:VmFolder" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[The first VM folder created by the workflow]]></description>
+  </attrib>
+  <attrib name="secondVmFolderName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[My Subfolder]]></value>
+    <description><![CDATA[Name of the second VM folder]]></description>
+  </attrib>
+  <attrib name="secondVmFolder" type="VC:VmFolder" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[The second VM folder created by the workflow]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="60.0" x="510.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item2" type="link" linked-workflow-id="BD8080808080808080808080808080808EC380800122528313869552e41805bb1">
+    <display-name><![CDATA[Create first VM folder]]></display-name>
+    <in-binding>
+      <bind name="parentFolder" type="VC:VmFolder" export-name="parentFolder"/>
+      <bind name="name" type="string" export-name="firstVmFolderName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="newFolder" type="VC:VmFolder" export-name="firstVmFolder"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="70.0" x="210.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item0" type="link" linked-workflow-id="BD8080808080808080808080808080808EC380800122528313869552e41805bb1">
+    <display-name><![CDATA[Create second VM folder]]></display-name>
+    <in-binding>
+      <bind name="parentFolder" type="VC:VmFolder" export-name="firstVmFolder"/>
+      <bind name="name" type="string" export-name="secondVmFolderName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="newFolder" type="VC:VmFolder" export-name="secondVmFolder"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="70.0" x="337.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

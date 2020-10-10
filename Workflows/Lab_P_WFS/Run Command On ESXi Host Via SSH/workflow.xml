@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="acead385-d463-4fe2-9bd0-9e8b0a0daa27" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Run Command On ESXi Host Via SSH</display-name>
+    <description>This workflow illustrates how to run a command on an ESXi host via SSH.</description>
+    <position y="50.0" x="100.0"/>
+    <input/>
+    <output/>
+    <attrib name="cluster" type="VC:ClusterComputeResource">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:domain-c1006'&amp;dunesName='VC:ClusterComputeResource'</value>
+        <description>Cluster of ESXi hosts</description>
+    </attrib>
+    <attrib name="esxiHost" type="VC:HostSystem">
+        <value encoded="n"/>
+    </attrib>
+    <attrib name="hostname" type="string">
+        <value encoded="n"/>
+    </attrib>
+    <attrib name="port" type="number">
+        <value encoded="n">22.0</value>
+    </attrib>
+    <attrib name="username" type="string">
+        <value encoded="n">root</value>
+    </attrib>
+    <attrib name="password" type="SecureString">
+        <value encoded="n">8BH56K4DG77L61Y72Z65R31R21WC0BA131K3B5AFA5I6C4163U9B7435AU34378BAOB39909DK8CA1F12G513161FL9F032E2P5D8AD34YC5CA638T8228C95K2EF555FZD54C774L8B9D61X3F04906ZC3B2CB4TAD910DDG3F00C47Q19E7839YAF68335IFEE8CABL1675B5AU77A1031H</value>
+    </attrib>
+    <attrib name="cmd" type="string">
+        <value encoded="n">uname -a;date;pwd;hostname;ls -l</value>
+    </attrib>
+    <attrib name="passwordAuthentication" type="boolean">
+        <value encoded="n">true</value>
+    </attrib>
+    <attrib name="path" type="Path">
+        <value encoded="n"/>
+    </attrib>
+    <attrib name="passphrase" type="SecureString">
+        <value encoded="n"/>
+    </attrib>
+    <attrib name="encoding" type="string">
+        <value encoded="n"/>
+    </attrib>
+    <attrib name="result" type="number">
+        <value encoded="n"/>
+    </attrib>
+    <attrib name="errorText" type="string">
+        <value encoded="n"/>
+    </attrib>
+    <attrib name="outputText" type="string">
+        <value encoded="n"/>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="60.78896772650788" x="544.4474680313729"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="link" linked-workflow-id="7e5ac02b-796d-40a4-bee8-be3c9675f2d5" comparator="0">
+        <display-name>Pick random ESXi host</display-name>
+        <script encoded="false"></script>
+        <in-binding>
+            <bind name="cluster" type="VC:ClusterComputeResource" export-name="cluster">
+                <description>Cluster</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="esxiHost" type="VC:HostSystem" export-name="esxiHost">
+                <description>Randomly selected ESXi host</description>
+            </bind>
+        </out-binding>
+        <description> </description>
+        <position y="60.0" x="190.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item3" type="task" comparator="0">
+        <display-name>Get hostname</display-name>
+        <script encoded="false">System.log("ESXi Host:"+esxiHost.name);&#13;
+hostname=esxiHost.name;</script>
+        <in-binding>
+            <bind name="esxiHost" type="VC:HostSystem" export-name="esxiHost"/>
+        </in-binding>
+        <out-binding>
+            <bind name="hostname" type="string" export-name="hostname"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="70.23423922590214" x="304.4505452921406"/>
+    </workflow-item>
+    <workflow-item name="item3" out-name="item0" type="link" linked-workflow-id="90808080808080808080808080808080D28080800120523434428525559a3425f" comparator="0">
+        <display-name>Run command via SSH</display-name>
+        <script encoded="false"></script>
+        <in-binding>
+            <bind name="hostNameOrIP" type="string" export-name="hostname">
+                <description>Hostname or IP address of the SSH host</description>
+            </bind>
+            <bind name="port" type="number" export-name="port">
+                <description>Target port</description>
+            </bind>
+            <bind name="username" type="string" export-name="username">
+                <description>Username</description>
+            </bind>
+            <bind name="password" type="SecureString" export-name="password">
+                <description>Password</description>
+            </bind>
+            <bind name="cmd" type="string" export-name="cmd">
+                <description>The SSH command to run</description>
+            </bind>
+            <bind name="passwordAuthentication" type="boolean" export-name="passwordAuthentication">
+                <description>Sets authentication to password or key file</description>
+            </bind>
+            <bind name="path" type="Path" export-name="path">
+                <description>Path to the private key</description>
+            </bind>
+            <bind name="passphrase" type="SecureString" export-name="passphrase">
+                <description>Private key pass-phrase</description>
+            </bind>
+            <bind name="encoding" type="string" export-name="encoding">
+                <description>The encoding to be used. Leave this field empty to use the default system encoding. (Example values: "UTF-8", "ISO-8859-1"...)</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="result" type="number" export-name="result">
+                <description>0 = OK, Negative = Error, Positive = Number of values returned, after error text</description>
+            </bind>
+            <bind name="errorText" type="string" export-name="errorText">
+                <description>Error text, if any</description>
+            </bind>
+            <bind name="outputText" type="string" export-name="outputText">
+                <description>Result of running the SSH command</description>
+            </bind>
+        </out-binding>
+        <description> </description>
+        <position y="70.16024463735181" x="397.7731887235459"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

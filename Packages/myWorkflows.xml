@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package>
+<description><![CDATA[Package of all my workflows]]></description>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='cb8fda04-3eca-4691-bf5c-3d46e54a1eda'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='3c135d85-f714-46bc-8ea8-1452122ca2b4'&dunesName='ConfigurationElement']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='123c3e0b-dc85-4371-ad8f-52da2947d2eb'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='50b17469-ba66-41ea-8f52-b1e62d7273d1'&dunesName='Action'&name='getVirtualMachineByFolder'&category='com.vmware.library.vc.folder']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='BD80808080808080808080808080808085C280800122528313869552e41805bb1'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='BD80808080808080808080808080808031C180800122528313869552e41805bb1'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='99afccd7-9fcc-4dc2-82b7-586de690364e'&dunesName='Action'&name='vim3WaitTaskEnd'&category='com.vmware.library.vc.basic']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='e6d0dddf-c3b1-4839-8e89-852c43a0296a'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='350c7cc4-22da-42ea-9b4f-4ae52cb9b2ba'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='ef816cb9-7a0b-45e8-b53a-5fa1c6de3b65'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='96230170-e653-4a52-bdbc-91bb24025e1f'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='c498865f-d5f8-4af9-b802-1570792fa74e'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='05334d3f-5da8-4d76-9458-6eff30b5075e'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='1574f31b-523e-4068-8b52-f5b8d4b057f8'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='2a2fd89e-920b-4879-928a-0fdfc87af9fb'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='a87dab23-7a5c-4fb5-a420-7342426007c9'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='a92bf5de-32e5-4554-8701-f61502965466'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='BD808080808080808080808080808080A3C280800122528313869552e41805bb1'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='ac69ba9e-0313-4c82-a380-c6db2b460dd4'&dunesName='Action'&name='getNetworksForHostSystem'&category='com.vmware.library.vc.network']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='9ce7eba5-03cb-4440-ab3e-17e664529a51'&dunesName='Action'&name='getDatastoreForHostAndResourcePool'&category='com.vmware.library.vc.datastore']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='60edece1-3d05-420b-8157-04dbb5bc8917'&dunesName='Action'&name='createVirtualFloppyRemoteConfigSpec'&category='com.vmware.library.vc.vm.spec.config.device']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='b1905fcb-8e22-40f4-a76e-63f3da97803e'&dunesName='Action'&name='createVirtualScsiControllerConfigSpec'&category='com.vmware.library.vc.vm.spec.config.device']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='fe87a8ec-9216-41e2-b847-bbb61a974fe2'&dunesName='Action'&name='createVirtualDiskFlatVer2ConfigSpec'&category='com.vmware.library.vc.vm.spec.config.device']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='ba09ce6c-9e20-4512-aa6a-2535be7c5282'&dunesName='Action'&name='createVirtualEthernetCardNetworkConfigSpec'&category='com.vmware.library.vc.vm.spec.config.device']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='898b914d-5e8b-4599-8045-f6d610a0c19e'&dunesName='ConfigurationElement']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='46eac8fd-81ce-4649-903d-920a5e26655b'&dunesName='Action'&name='nowPlusSeconds'&category='com.vmware.vroe.dateArithmetic']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='59c1da19-4a4e-4011-b75e-215808cbf4db'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='1f9963b6-a83b-42e8-9b37-a05ac008b1c3'&dunesName='Action'&name='bumpNumber'&category='com.vmware.vroe.exceptionHandler']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='9a9deff7-ce4a-4daf-acf8-64c3aa6b035d'&dunesName='Action'&name='parseString'&category='com.vmware.vroe.exceptionHandler']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='910e2d77-1246-49b3-ad35-13ff3bf392ef'&dunesName='Action'&name='getAllDatastoreOnVimHost'&category='com.vmware.library.vc.datastore']]></elm>
+<used-plugin name='VC' version='6.5.0' />
+</package>

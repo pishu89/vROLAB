@@ -1,0 +1,2 @@
+var logMessage = curVM.name + " has " + curVM.summary.config.numCpu + " vCPUs";
+System.log(logMessage);

@@ -1,0 +1,13 @@
+// Imagine that this scriptable task is doing something more than just sleeping.
+System.sleep(1000);
+
+System.debug("System.debug(counter)=" + counter);
+System.log("System.log(counter)=" + counter);
+System.warn("System.warn(counter)=" + counter);
+System.error("System.error(counter)=" + counter);
+
+System.log("Server.log(counter)=" + counter);
+System.warn("Server.warn(counter)=" + counter);
+System.error("Server.error(counter)=" + counter);
+
+System.log("==============================");

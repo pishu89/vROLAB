@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getContinents" result-type="Array/string" api-version="6.0.0" id="dafa76b4-82bf-468a-a0a9-9a55a38ada8e" version="0.0.0" category-name="com.plab.vro.vmeduc">
+  <description><![CDATA[This action returns a list of continents suitable for creating a dropdown list.]]></description>
+  <script encoded="false"><![CDATA[var ddl = new Array(); 
+ddl.push("North America"); 
+ddl.push("South America");
+ ddl.push("Europe"); 
+ddl.push("Asia"); 
+ddl.push("Africa");
+ddl.push("Australia"); 
+ddl.push("Antarctica"); 
+return ddl;]]></script>
+</dunes-script-module>

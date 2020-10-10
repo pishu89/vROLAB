@@ -1,0 +1,1 @@
+System.log("This workflow was successfully called by vRA.");

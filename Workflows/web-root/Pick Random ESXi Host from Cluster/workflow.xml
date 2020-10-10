@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item2" object-name="workflow:name=generic" id="7e5ac02b-796d-40a4-bee8-be3c9675f2d5" version="0.0.0" api-version="6.0.0" allowed-operations="evf" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Pick Random ESXi Host from Cluster]]></display-name>
+  <description><![CDATA[This workflow takes a cluster as input and returns a randomly selected ESXi host from the cluster.]]></description>
+  <position y="50.0" x="60.0"/>
+  <input>
+    <param name="cluster" type="VC:ClusterComputeResource">
+      <description><![CDATA[Cluster]]></description>
+    </param>
+  </input>
+  <output>
+    <param name="esxiHost" type="VC:HostSystem">
+      <description><![CDATA[Randomly selected ESXi host]]></description>
+    </param>
+  </output>
+  <attrib name="esxiHosts" type="Array/VC:HostSystem" read-only="false">
+    <value encoded="n"><![CDATA[#{##}#]]></value>
+    <description><![CDATA[Array of hosts in the cluster]]></description>
+  </attrib>
+  <attrib name="numberOfHosts" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Number of hosts in the cluster]]></description>
+  </attrib>
+  <attrib name="randomNumber" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Random number between 1 and number_of_hosts_in_the_cluster]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="50.0" x="580.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="task">
+    <display-name><![CDATA[Pick random ESXi host]]></display-name>
+    <script encoded="false"><![CDATA[var localEsxiHost;  // A local variable so that we can both set & get value
+                    // Last line of script copies this local variable to an output
+
+localEsxiHost = esxiHosts[randomNumber];
+System.log("ESXi host=" + localEsxiHost.name);
+esxiHost = localEsxiHost;]]></script>
+    <in-binding>
+      <bind name="randomNumber" type="number" export-name="randomNumber"/>
+      <bind name="esxiHosts" type="Array/VC:HostSystem" export-name="esxiHosts"/>
+    </in-binding>
+    <out-binding>
+      <bind name="esxiHost" type="VC:HostSystem" export-name="esxiHost"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="410.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item3" type="task">
+    <display-name><![CDATA[Get ESXi hosts]]></display-name>
+    <script encoded="false"><![CDATA[esxiHosts = cluster.host;
+numberOfHosts = esxiHosts.length;]]></script>
+    <in-binding>
+      <bind name="cluster" type="VC:ClusterComputeResource" export-name="cluster"/>
+    </in-binding>
+    <out-binding>
+      <bind name="esxiHosts" type="Array/VC:HostSystem" export-name="esxiHosts"/>
+      <bind name="numberOfHosts" type="number" export-name="numberOfHosts"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="150.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item1" type="task" script-module="com.vmware.vroe.random/generateRandomNumber">
+    <display-name><![CDATA[Generate random number]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.vroe.random").generateRandomNumber(max);
+]]></script>
+    <in-binding>
+      <bind name="max" type="number" export-name="numberOfHosts"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="number" export-name="randomNumber"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="60.0" x="280.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

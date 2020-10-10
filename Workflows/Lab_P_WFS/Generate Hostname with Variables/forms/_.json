@@ -1,0 +1,1 @@
+{"schema":{"nextNum":{"id":"nextNum","type":{"dataType":"string"},"label":"nextNum","constraints":{"required":false}}},"layout":{"pages":[{"id":"page_zx818zkx","title":"General","sections":[{"id":"section_ahi5kajy","fields":[{"id":"nextNum","display":"textField"}]}]}]},"itemId":""}

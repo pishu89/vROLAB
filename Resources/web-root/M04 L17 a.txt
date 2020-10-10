@@ -1,0 +1,11 @@
+var ddl = new Array();
+
+ddl.push("North America");
+ddl.push("South America");
+ddl.push("Europe");
+ddl.push("Asia");
+ddl.push("Africa");
+ddl.push("Australia");
+ddl.push("Antarctica");
+
+return ddl;

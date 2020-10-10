@@ -1,0 +1,3 @@
+const millisecondsPerSecond = 1000;
+
+System.sleep(secondsToSleep * millisecondsPerSecond);

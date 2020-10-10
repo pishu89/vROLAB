@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="b05abc24-fbb0-4877-9594-cb00069b0e48" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Create VM asking for Name Only]]></display-name>
+  <position y="116.84210526315789" x="148.42105263157896"/>
+  <input>
+    <param name="vmName" type="string">
+      <description><![CDATA[Name of new VM]]></description>
+    </param>
+  </input>
+  <output>
+    <param name="newVM" type="VC:VirtualMachine">
+      <description><![CDATA[The newly created VM]]></description>
+    </param>
+  </output>
+  <attrib name="numberOfVcpus" type="number" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVcpus">
+    <description><![CDATA[Number of vCPUs]]></description>
+  </attrib>
+  <attrib name="amountVram" type="number" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVram">
+    <description><![CDATA[Amount of vRAM in MB]]></description>
+  </attrib>
+  <attrib name="amountVdisk" type="number" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVdisk">
+    <description><![CDATA[Virtual disk size in GB]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="116.84210526315789" x="408.4210526315791"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="link" linked-workflow-id="a92bf5de-32e5-4554-8701-f61502965466">
+    <display-name><![CDATA[Create VM]]></display-name>
+    <in-binding>
+      <bind name="vmName" type="string" export-name="vmName"/>
+      <bind name="numberOfVcpus" type="number" export-name="numberOfVcpus"/>
+      <bind name="amountVram" type="number" export-name="amountVram"/>
+      <bind name="amountVdisk" type="number" export-name="amountVdisk"/>
+    </in-binding>
+    <out-binding>
+      <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="126.84210526315789" x="238.42105263157896"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

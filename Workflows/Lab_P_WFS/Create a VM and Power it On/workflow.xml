@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="50fae6a5-3887-4f36-b4f1-49ed6004906b" editor-version="2.0" version="0.0.0" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Create a VM and Power it On</display-name>
+    <description>This workflow creates a VM and powers it on</description>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="vmName" type="string"/>
+        <param name="numberOfVcpus" type="number"/>
+        <param name="amountVram" type="number"/>
+        <param name="amountVdisk" type="number"/>
+    </input>
+    <output>
+        <param name="powerOnTask" type="VC:Task"/>
+    </output>
+    <attrib name="newVM" type="VC:VirtualMachine">
+        <value encoded="n"/>
+    </attrib>
+    <attrib name="host" type="VC:HostSystem">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:host-1013'&amp;dunesName='VC:HostSystem'</value>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="480.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="link" linked-workflow-id="a92bf5de-32e5-4554-8701-f61502965466" comparator="0">
+        <display-name>Create VM</display-name>
+        <script encoded="false"></script>
+        <in-binding>
+            <bind name="vmName" type="string" export-name="vmName">
+                <description>Name of new VM</description>
+            </bind>
+            <bind name="numberOfVcpus" type="number" export-name="numberOfVcpus">
+                <description>Number of vCPUs</description>
+            </bind>
+            <bind name="amountVram" type="number" export-name="amountVram">
+                <description>vRAM in MB</description>
+            </bind>
+            <bind name="amountVdisk" type="number" export-name="amountVdisk">
+                <description>vDisk in GB</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="newVM" type="VC:VirtualMachine" export-name="newVM">
+                <description>The newly created VM</description>
+            </bind>
+        </out-binding>
+        <description> </description>
+        <position y="60.0" x="180.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item0" type="task" script-module="com.vmware.library.vc.vm.power/startVM" comparator="0">
+        <display-name>Power on VM</display-name>
+        <script encoded="false">//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.vc.vm.power").startVM(vm,host);
+</script>
+        <in-binding>
+            <bind name="vm" type="VC:VirtualMachine" export-name="newVM">
+                <description>VM to start or resume</description>
+            </bind>
+            <bind name="host" type="VC:HostSystem" export-name="host">
+                <description>[Optional] The host where the virtual machine is to be powered on. If no host is specified, the current associated host is used. This field must specify a host that is part of the same compute resource that the virtual machine is currently associated with. If this host is not compatible, the current host association is used. </description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="actionResult" type="VC:Task" export-name="powerOnTask"/>
+        </out-binding>
+        <description>Add a note to the workflow schema.</description>
+        <position y="50.0" x="320.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

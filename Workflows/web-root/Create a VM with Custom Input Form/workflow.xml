@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="4844af57-7b22-43f2-ae31-44bec1b131fc" editor-version="2.0" version="0.0.0" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Create a VM with Custom Input Form</display-name>
+    <description>This workflow illustrates the use of a custom input form.</description>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="vmName" type="string"/>
+        <param name="numberOfVcpus" type="number"/>
+        <param name="amountVram" type="number"/>
+        <param name="amountVdisk" type="number"/>
+    </input>
+    <output>
+        <param name="newVM" type="VC:VirtualMachine"/>
+    </output>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="300.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item0" type="link" linked-workflow-id="a92bf5de-32e5-4554-8701-f61502965466" comparator="0">
+        <display-name>Create VM</display-name>
+        <script encoded="false"></script>
+        <in-binding>
+            <bind name="vmName" type="string" export-name="vmName">
+                <description>Name of new VM</description>
+            </bind>
+            <bind name="numberOfVcpus" type="number" export-name="numberOfVcpus">
+                <description>Number of vCPUs</description>
+            </bind>
+            <bind name="amountVram" type="number" export-name="amountVram">
+                <description>vRAM in MB</description>
+            </bind>
+            <bind name="amountVdisk" type="number" export-name="amountVdisk">
+                <description>vDisk in GB</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="newVM" type="VC:VirtualMachine" export-name="newVM">
+                <description>The newly created VM</description>
+            </bind>
+        </out-binding>
+        <description> </description>
+        <position y="60.0" x="170.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

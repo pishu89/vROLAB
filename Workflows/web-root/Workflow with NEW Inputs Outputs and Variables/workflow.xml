@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="5b4e203d-3f22-4a20-b228-6927e81220a9" editor-version="2.0" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Workflow with NEW Inputs Outputs and Variables</display-name>
+    <description>This workflow does nothing except to provide the student with a pre-created workflow to which the student can add inputs, outputs, and variables.</description>
+    <position y="40.0" x="60.0"/>
+    <input>
+        <param name="myInput" type="string">
+            <description>This is my input</description>
+        </param>
+    </input>
+    <output>
+        <param name="myOutput" type="string">
+            <description>This is my output</description>
+        </param>
+    </output>
+    <attrib name="myVariable" type="string">
+        <value encoded="n">Hello, world!</value>
+        <description>This is my variable</description>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="40.0" x="580.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="task" comparator="0">
+        <display-name>Schema element #1</display-name>
+        <script encoded="false">// The following variable is _not_ the same thing as the workflow variable
+// that you created even though they have the exact same name.
+//
+// The following variable is local to this schema element. It has no
+// relationship to any input, output, or variable anywhere else in the
+// workflow.
+var myVariable = "This is a local variable";
+
+// The following "input" is not an input. It is a local variable. It is
+// local to this schema element and has no relationship to any input, output,
+// or variable anywhere else in the workflow.
+var myInput = "This is also a local variable";
+
+// The following "output" is not an output. It is a local variable. It is
+// local to this schema element and has no relationship to any input, output,
+// or variable anywhere else in the workflow.
+var myOutput = "This is also a local variable";
+
+// Omitting the "var" keyword makes no difference. The variables above would
+// still be local variables.
+
+// One easy way to determine that a variable in a schema element is a local
+// variable is from the fact that the script editor has colored the variable
+// name in black.
+
+// Connecting a schema element's variables to workflow variables (or inputs or
+// outputs) is done by performing "binding". This technique is described in
+// more detail later in the course.</script>
+        <in-binding/>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="180.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item3" type="task" comparator="0">
+        <display-name>Schema element #2</display-name>
+        <script encoded="false">// The following variable is _not_ the same thing as the workflow variable
+// that you created even though they have the exact same name.
+//
+// The following variable is local to this schema element. It has no
+// relationship to any input, output, or variable anywhere else in the
+// workflow.
+var myVariable = "This is a local variable";
+
+// The following "input" is not an input. It is a local variable. It is
+// local to this schema element and has no relationship to any input, output,
+// or variable anywhere else in the workflow.
+var myInput = "This is also a local variable";
+
+// The following "output" is not an output. It is a local variable. It is
+// local to this schema element and has no relationship to any input, output,
+// or variable anywhere else in the workflow.
+var myOutput = "This is also a local variable";
+
+// Omitting the "var" keyword makes no difference. The variables above would
+// still be local variables.
+
+// One easy way to determine that a variable in a schema element is a local
+// variable is from the fact that the script editor has colored the variable
+// name in black.
+
+// Connecting a schema element's variables to workflow variables (or inputs or
+// outputs) is done by performing "binding". This technique is described in
+// more detail later in the course.</script>
+        <in-binding/>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="50.0" x="280.0"/>
+    </workflow-item>
+    <workflow-item name="item3" out-name="item0" type="task" comparator="0">
+        <display-name>Schema element #3</display-name>
+        <script encoded="false">// The following variable is _not_ the same thing as the workflow variable
+// that you created even though they have the exact same name.
+//
+// The following variable is local to this schema element. It has no
+// relationship to any input, output, or variable anywhere else in the
+// workflow.
+var myVariable = "This is a local variable";
+
+// The following "input" is not an input. It is a local variable. It is
+// local to this schema element and has no relationship to any input, output,
+// or variable anywhere else in the workflow.
+var myInput = "This is also a local variable";
+
+// The following "output" is not an output. It is a local variable. It is
+// local to this schema element and has no relationship to any input, output,
+// or variable anywhere else in the workflow.
+var myOutput = "This is also a local variable";
+
+// Omitting the "var" keyword makes no difference. The variables above would
+// still be local variables.
+
+// One easy way to determine that a variable in a schema element is a local
+// variable is from the fact that the script editor has colored the variable
+// name in black.
+
+// Connecting a schema element's variables to workflow variables (or inputs or
+// outputs) is done by performing "binding". This technique is described in
+// more detail later in the course.</script>
+        <in-binding/>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="50.0" x="420.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

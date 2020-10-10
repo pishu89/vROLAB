@@ -1,0 +1,5 @@
+cluster = hostnameAttributes.getAttributeWithKey("cluster").value;
+businessGroup = hostnameAttributes.getAttributeWithKey("businessGroup").value;
+operatingSystem = hostnameAttributes.getAttributeWithKey("operatingSystem").value;
+nextNum = hostnameAttributes.getAttributeWithKey("nextNum").value;
+step = hostnameAttributes.getAttributeWithKey("step").value;

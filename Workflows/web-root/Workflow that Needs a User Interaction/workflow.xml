@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item3" object-name="workflow:name=generic" id="d8e81352-7797-4883-93a4-51c73eb28358" editor-version="2.0" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Workflow that Needs a User Interaction</display-name>
+    <description>This workflow illustrates how to use a user interaction for approvals.</description>
+    <position y="65.0" x="50.0"/>
+    <input>
+        <param name="numberOfVcpus" type="number">
+            <description>Number of vCPUs</description>
+        </param>
+        <param name="amountVdisk" type="number">
+            <description>Amount of vDisk (in GB)</description>
+        </param>
+        <param name="amountVram" type="number">
+            <description>Amount of vRAM (in MB)</description>
+        </param>
+        <param name="vmName" type="string">
+            <description>Name of new virtual machine</description>
+        </param>
+    </input>
+    <output/>
+    <attrib name="defaultVcpus" type="number" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVcpus">
+        <description>Default number of vCPUs</description>
+    </attrib>
+    <attrib name="defaultVram" type="number" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVram">
+        <description>Default amount of vRAM in MB</description>
+    </attrib>
+    <attrib name="defaultVdisk" type="number" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVdisk">
+        <description>Default size of virtual disk in GB</description>
+    </attrib>
+    <attrib name="vcpus" type="number">
+        <value encoded="n"/>
+        <description>Number of vCPUs</description>
+    </attrib>
+    <attrib name="vram" type="number">
+        <value encoded="n"/>
+        <description>Amount of vRAM (in MB)</description>
+    </attrib>
+    <attrib name="vdisk" type="number">
+        <value encoded="n"/>
+        <description>Amount of vDisk (in GB)</description>
+    </attrib>
+    <attrib name="newVM" type="VC:VirtualMachine">
+        <value encoded="n"/>
+        <description>The newly created VM</description>
+    </attrib>
+    <workflow-item name="item1" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="194.0" x="310.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item6" alt-out-name="item7" type="custom-condition" comparator="0">
+        <display-name>VM Too big?</display-name>
+        <script encoded="false">var isVmTooBig = false;
+
+System.log("vcpus:         " + vcpus);
+System.log("defaultVcpus:  " + defaultVcpus);
+System.log("vVram:         " + vram);
+System.log("defaultVram:   " + defaultVram);
+System.log("vdisk:         " + vdisk);
+System.log("defaultVdisk:  " + defaultVdisk);
+
+if (vcpus &gt; defaultVcpus) { 
+    System.warn("Too many vCPUs");
+    isVmTooBig = true;
+}
+
+if (vram &gt; defaultVram) {
+    System.warn("Too much vRAM");
+    isVmTooBig = true;
+}
+
+if (vdisk &gt; defaultVdisk) {
+    System.warn("Too much vDisk");
+    isVmTooBig = true;
+}
+
+return isVmTooBig;</script>
+        <in-binding>
+            <bind name="defaultVcpus" type="number" export-name="defaultVcpus"/>
+            <bind name="defaultVram" type="number" export-name="defaultVram"/>
+            <bind name="defaultVdisk" type="number" export-name="defaultVdisk"/>
+            <bind name="vcpus" type="number" export-name="vcpus"/>
+            <bind name="vram" type="number" export-name="vram"/>
+            <bind name="vdisk" type="number" export-name="vdisk"/>
+        </in-binding>
+        <out-binding/>
+        <description>Custom decision based on a custom script.</description>
+        <position y="65.0" x="270.0"/>
+    </workflow-item>
+    <workflow-item name="item3" out-name="item2" type="task" comparator="0">
+        <display-name>Copy inputs to variables</display-name>
+        <script encoded="false">vcpus = numberOfVcpus;
+vram = amountVram;
+vdisk = amountVdisk;</script>
+        <in-binding>
+            <bind name="numberOfVcpus" type="number" export-name="numberOfVcpus"/>
+            <bind name="amountVram" type="number" export-name="amountVram"/>
+            <bind name="amountVdisk" type="number" export-name="amountVdisk"/>
+        </in-binding>
+        <out-binding>
+            <bind name="vcpus" type="number" export-name="vcpus"/>
+            <bind name="vram" type="number" export-name="vram"/>
+            <bind name="vdisk" type="number" export-name="vdisk"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="75.0" x="141.0"/>
+    </workflow-item>
+    <workflow-item name="item4" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="64.5" x="660.0"/>
+    </workflow-item>
+    <workflow-item name="item5" out-name="item7" alt-out-name="item4" type="custom-condition" comparator="0">
+        <display-name>Request approved?</display-name>
+        <script encoded="false">return true;</script>
+        <in-binding/>
+        <out-binding/>
+        <description>Custom decision based on a custom script.</description>
+        <position y="65.0" x="499.0"/>
+    </workflow-item>
+    <workflow-item name="item6" out-name="item5" type="task" comparator="0">
+        <display-name>Need a User Interaction here</display-name>
+        <script encoded="false">// Replace this scriptaboe task with a user interaction.</script>
+        <in-binding/>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="74.1693617593941" x="379.49622541667753"/>
+    </workflow-item>
+    <workflow-item name="item7" out-name="item1" type="link" linked-workflow-id="a87dab23-7a5c-4fb5-a420-7342426007c9" comparator="0">
+        <display-name>Create VM</display-name>
+        <in-binding>
+            <bind name="vmName" type="string" export-name="vmName"/>
+            <bind name="numberOfVcpus" type="number" export-name="vcpus"/>
+            <bind name="amountVram" type="number" export-name="vram"/>
+            <bind name="amountVdisk" type="number" export-name="vdisk"/>
+        </in-binding>
+        <out-binding>
+            <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+        </out-binding>
+        <description> </description>
+        <position y="138.0" x="270.0"/>
+    </workflow-item>
+    <presentation/>
+    <workflow-note x="363.0" y="49.5" w="258.0" h="73.0" color="ffaaaa">
+        <description>These need fixing</description>
+    </workflow-note>
+</ns2:workflow>

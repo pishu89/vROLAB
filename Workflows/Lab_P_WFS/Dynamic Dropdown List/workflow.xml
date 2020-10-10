@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item0" object-name="workflow:name=generic" id="b1adedcf-8f44-44dd-b777-c109780bd7c0" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Dynamic Dropdown List</display-name>
+    <description>This workflow illustrates how to create dynamic dropdown lists.</description>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="country" type="string">
+            <description>Select a Country</description>
+        </param>
+        <param name="continent" type="string">
+            <description>Select the continent</description>
+        </param>
+    </input>
+    <output/>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="240.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

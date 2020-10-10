@@ -1,0 +1,1 @@
+{"schema":{"waitDate":{"id":"waitDate","type":{"dataType":"dateTime"},"label":"waitDate"}},"layout":{"pages":[{"id":"page_qe5vhx8e","title":"General","sections":[{"id":"section_9uin86yd","fields":[{"id":"waitDate","display":"dateTime"}]}]}]},"itemId":""}

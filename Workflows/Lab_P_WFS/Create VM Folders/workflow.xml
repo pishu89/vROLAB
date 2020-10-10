@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="379d8436-354f-46e5-ac05-db013a877a61" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Create VM Folders</display-name>
+    <description>This workflow illustrates how to create multiple VM folders and how to use the binding technique</description>
+    <position y="50.0" x="100.0"/>
+    <input/>
+    <output/>
+    <attrib name="parentFolder" type="VC:VmFolder">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:group-v1002'&amp;dunesName='VC:VmFolder'</value>
+        <description>v</description>
+    </attrib>
+    <attrib name="firstVmFolderName" type="string">
+        <value encoded="n">My VMx</value>
+        <description>Name of the first VM folder</description>
+    </attrib>
+    <attrib name="firstVmFolder" type="VC:VmFolder">
+        <value encoded="n"/>
+        <description>The first VM folder created by the workflow</description>
+    </attrib>
+    <attrib name="secondVmFolderName" type="string">
+        <value encoded="n">My Subfolder</value>
+    </attrib>
+    <attrib name="secondVmFolder" type="VC:VmFolder">
+        <value encoded="n"/>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="410.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="link" linked-workflow-id="BD8080808080808080808080808080808EC380800122528313869552e41805bb1" comparator="0">
+        <display-name>Create first VM folder</display-name>
+        <script encoded="false"></script>
+        <in-binding>
+            <bind name="parentFolder" type="VC:VmFolder" export-name="parentFolder">
+                <description>Parent folder</description>
+            </bind>
+            <bind name="name" type="string" export-name="firstVmFolderName">
+                <description>Name of the new folder</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="newFolder" type="VC:VmFolder" export-name="firstVmFolder">
+                <description>The newly created folder, if no errors occur</description>
+            </bind>
+        </out-binding>
+        <description> </description>
+        <position y="60.0" x="170.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item0" type="link" linked-workflow-id="BD8080808080808080808080808080808EC380800122528313869552e41805bb1" comparator="0">
+        <display-name>Create second VM folder</display-name>
+        <script encoded="false"></script>
+        <in-binding>
+            <bind name="parentFolder" type="VC:VmFolder" export-name="firstVmFolder">
+                <description>Parent folder</description>
+            </bind>
+            <bind name="name" type="string" export-name="secondVmFolderName">
+                <description>Name of the new folder</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="newFolder" type="VC:VmFolder" export-name="secondVmFolder">
+                <description>The newly created folder, if no errors occur</description>
+            </bind>
+        </out-binding>
+        <description> </description>
+        <position y="60.0" x="275.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

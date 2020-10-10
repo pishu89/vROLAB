@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="a92bf5de-32e5-4554-8701-f61502965466" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Create VM asking for Name vCPUs vRAM vDisk]]></display-name>
+  <description><![CDATA[This workflow wraps the standard "Create simple virtual machine" workflow.
+
+Whereas the standard "Create simple virtual machine" workflow has a dozen or so inputs, this intentionally only has four inputs.
+
+Additionally, this workflow intentionally sleeps after creating a VM. The purpose of this sleep is because in one of the VROE labs, the student will run this workflow in a loop. Adding the delay will protect us if that loop turns out to be an infinite loop (thereby consuming the VDC's limited resources).
+
+See Also: Configuration element called "VROE lab environment defaults". That configuration element has default values that are used by this workflow (e.g. default number of vCPUs, default ESXi host, etc.)]]></description>
+  <position y="90.0" x="100.0"/>
+  <input>
+    <param name="vmName" type="string">
+      <description><![CDATA[Name of new VM]]></description>
+    </param>
+    <param name="numberOfVcpus" type="number">
+      <description><![CDATA[Number of vCPUs]]></description>
+    </param>
+    <param name="amountVram" type="number">
+      <description><![CDATA[vRAM in MB]]></description>
+    </param>
+    <param name="amountVdisk" type="number">
+      <description><![CDATA[vDisk in GB]]></description>
+    </param>
+  </input>
+  <output>
+    <param name="newVM" type="VC:VirtualMachine">
+      <description><![CDATA[The newly created VM]]></description>
+    </param>
+  </output>
+  <attrib name="diskThinProvisioned" type="boolean" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultThinProvision">
+    <description><![CDATA[Thin provision virtual disk?]]></description>
+  </attrib>
+  <attrib name="vmGuestOs" type="VC:VirtualMachineGuestOsIdentifier" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='dosGuest'&dunesName='VC:VirtualMachineGuestOsIdentifier']]></value>
+    <description><![CDATA[Guest OS that will be installed into the new VM]]></description>
+  </attrib>
+  <attrib name="vmFolder" type="VC:VmFolder" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVmFolder">
+    <description><![CDATA[VM folder to install new VM into]]></description>
+  </attrib>
+  <attrib name="vmHost" type="VC:HostSystem" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultEsxiHost">
+    <description><![CDATA[ESXi host to install new VM onto]]></description>
+  </attrib>
+  <attrib name="vmDatastore" type="VC:Datastore" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultDatastore">
+    <description><![CDATA[Datastore to install new VM into]]></description>
+  </attrib>
+  <attrib name="vmNetwork" type="VC:Network" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultNetwork">
+    <description><![CDATA[Network to plug new VM into]]></description>
+  </attrib>
+  <attrib name="vmResourcePool" type="VC:ResourcePool" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultResourcePool">
+    <description><![CDATA[Resource pool to install new VM into]]></description>
+  </attrib>
+  <attrib name="sleepTime" type="number" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultDelayBetweenVms">
+    <description><![CDATA[Intentionally sleep to slow down VM creation in case someone runs this workflow in a loop]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="90.0" x="490.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item2" type="link" linked-workflow-id="BD808080808080808080808080808080A3C280800122528313869552e41805bb1">
+    <display-name><![CDATA[Create simple virtual machine]]></display-name>
+    <in-binding>
+      <bind name="vmName" type="string" export-name="vmName"/>
+      <bind name="vmGuestOs" type="VC:VirtualMachineGuestOsIdentifier" export-name="vmGuestOs"/>
+      <bind name="vmFolder" type="VC:VmFolder" export-name="vmFolder"/>
+      <bind name="vmResourcePool" type="VC:ResourcePool" export-name="vmResourcePool"/>
+      <bind name="vmHost" type="VC:HostSystem" export-name="vmHost"/>
+      <bind name="vmDiskSize" type="number" export-name="amountVdisk"/>
+      <bind name="vmMemorySize" type="number" export-name="amountVram"/>
+      <bind name="vmNbOfCpus" type="number" export-name="numberOfVcpus"/>
+      <bind name="vmNetwork" type="VC:Network" export-name="vmNetwork"/>
+      <bind name="vmDatastore" type="VC:Datastore" export-name="vmDatastore"/>
+      <bind name="diskThinProvisioned" type="boolean" export-name="diskThinProvisioned"/>
+    </in-binding>
+    <out-binding>
+      <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="100.0" x="190.0"/>
+  </workflow-item>
+  <workflow-item name="item2" prototype-id="sleep" out-name="item0" content-mode="x" type="task">
+    <display-name><![CDATA[Sleep]]></display-name>
+    <script encoded="false"><![CDATA[//Auto-generated script
+if ( sleepTime !== null )  {
+	System.sleep(sleepTime * 1000);
+}else  {
+	throw "'sleepTime' is NULL"; 
+}]]></script>
+    <in-binding>
+      <bind name="sleepTime" type="number" export-name="sleepTime">
+        <description><![CDATA[Time to sleep in seconds]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Sleep a given number of seconds.]]></description>
+    <position y="100.0" x="320.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

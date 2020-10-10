@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getVram" result-type="number" api-version="6.0.0" id="720fce46-833d-42dd-965b-09ab14c7e512" version="0.0.0" category-name="com.plab.vro.vmeduc">
+  <description><![CDATA[Given a VM, this action returns the amount of vRAM allocated to the VM in MB]]></description>
+  <param n="vm" t="VC:VirtualMachine"><![CDATA[The VM to interrogate]]></param>
+  <script encoded="false"><![CDATA[return vm.config.hardware.memoryMB;]]></script>
+</dunes-script-module>

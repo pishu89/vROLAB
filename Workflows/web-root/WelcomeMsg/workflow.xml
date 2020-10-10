@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="8780b3a4-4ec4-46bd-880c-11a16f39e47f" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>WelcomeMsg</display-name>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="fname" type="string"/>
+        <param name="lname" type="string"/>
+        <param name="age" type="number"/>
+    </input>
+    <output/>
+    <attrib name="details" type="string">
+        <value encoded="n"/>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="300.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item0" type="task" comparator="0">
+        <display-name>Scriptable task</display-name>
+        <script encoded="false">details="Welcome "+fname+lname+" You are "+age+" years old";</script>
+        <in-binding>
+            <bind name="fname" type="string" export-name="fname"/>
+            <bind name="lname" type="string" export-name="lname"/>
+            <bind name="age" type="number" export-name="age"/>
+        </in-binding>
+        <out-binding>
+            <bind name="details" type="string" export-name="details"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="150.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

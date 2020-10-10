@@ -1,0 +1,1 @@
+{"schema":{"eventName":{"id":"eventName","type":{"dataType":"string"},"label":"eventName","constraints":{"required":false}}},"layout":{"pages":[{"id":"page_byx5l6fi","title":"General","sections":[{"id":"section_j0phvlf8","fields":[{"id":"eventName","display":"textField"}]}]}]},"itemId":""}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item3" object-name="workflow:name=generic" id="59c1da19-4a4e-4011-b75e-215808cbf4db" editor-version="2.0" version="0.0.0" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Workflow that will use an Exception Handler</display-name>
+    <description>This workflow will use an exception handler</description>
+    <position y="65.0" x="50.0"/>
+    <input>
+        <param name="numberOfVcpus" type="number">
+            <description>Number of vCPUs</description>
+        </param>
+        <param name="amountVdisk" type="number">
+            <description>Amount of vDisk (in GB)</description>
+        </param>
+        <param name="amountVram" type="number">
+            <description>Amount of vRAM (in MB)</description>
+        </param>
+        <param name="vmName" type="string">
+            <description>Name of new virtual machine</description>
+        </param>
+    </input>
+    <output/>
+    <attrib name="newVM" type="VC:VirtualMachine">
+        <value encoded="n"/>
+        <description>The newly created VM</description>
+    </attrib>
+    <attrib name="vmNameRW" type="string">
+        <value encoded="n"></value>
+        <description>A read/write variable for storing the name of the VM</description>
+    </attrib>
+    <attrib name="errorCode" type="string">
+        <value encoded="n"/>
+        <description>Message from thrown exception</description>
+    </attrib>
+    <workflow-item name="item1" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="64.5" x="450.0"/>
+    </workflow-item>
+    <workflow-item name="item3" out-name="item7" type="task" comparator="0">
+        <display-name>Copy input to variable</display-name>
+        <script encoded="false">vmNameRW = vmName;</script>
+        <in-binding>
+            <bind name="vmName" type="string" export-name="vmName"/>
+        </in-binding>
+        <out-binding>
+            <bind name="vmNameRW" type="string" export-name="vmNameRW"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="75.0" x="141.0"/>
+    </workflow-item>
+    <workflow-item name="item7" out-name="item1" catch-name="item8" throw-bind-name="errorCode" type="link" linked-workflow-id="a87dab23-7a5c-4fb5-a420-7342426007c9" comparator="0">
+        <display-name>Create VM</display-name>
+        <in-binding>
+            <bind name="vmName" type="string" export-name="vmNameRW"/>
+            <bind name="numberOfVcpus" type="number" export-name="numberOfVcpus"/>
+            <bind name="amountVram" type="number" export-name="amountVram"/>
+            <bind name="amountVdisk" type="number" export-name="amountVdisk"/>
+        </in-binding>
+        <out-binding>
+            <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+        </out-binding>
+        <description> </description>
+        <position y="75.0" x="275.0"/>
+    </workflow-item>
+    <workflow-item name="item8" out-name="item10" type="task" comparator="0">
+        <display-name>Handle exception</display-name>
+        <script encoded="false">System.error(errorCode);&#13;
+System.error("We could supplement the exception message here.");</script>
+        <in-binding>
+            <bind name="errorCode" type="string" export-name="errorCode"/>
+        </in-binding>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="140.0" x="280.0"/>
+    </workflow-item>
+    <workflow-item name="item10" out-name="item7" type="task" script-module="com.vmware.vroe.exceptionHandler/bumpNumber" comparator="0">
+        <display-name>Bump number</display-name>
+        <script encoded="false">//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.vroe.exceptionHandler").bumpNumber(originalString);
+</script>
+        <in-binding>
+            <bind name="originalString" type="string" export-name="vmNameRW">
+                <description>The string to bump up</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="actionResult" type="string" export-name="vmNameRW"/>
+        </out-binding>
+        <description>Add a note to the workflow schema.</description>
+        <position y="130.0" x="400.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

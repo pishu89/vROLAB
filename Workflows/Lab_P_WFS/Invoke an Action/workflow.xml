@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="aa5f38e5-fcaf-4d19-84e8-c87d592ac560" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Invoke an Action</display-name>
+    <description>This workflow illustrates how to call an action</description>
+    <position y="50.0" x="100.0"/>
+    <input/>
+    <output/>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="300.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item0" type="task" script-module="com.vmware.vroe.hello/helloWorld" comparator="0">
+        <display-name>Say hello</display-name>
+        <script encoded="false">//Auto generated script, cannot be modified !
+System.getModule("com.vmware.vroe.hello").helloWorld();
+</script>
+        <in-binding/>
+        <out-binding/>
+        <description>Add a note to the workflow schema.</description>
+        <position y="60.0" x="190.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

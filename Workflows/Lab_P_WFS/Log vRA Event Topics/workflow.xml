@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="e905ba8c-ee3d-4478-bf50-1f7ce79684a9" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Log vRA Event Topics</display-name>
+    <description>This workflow illustrates how to extract information from the payload that is sent from vRA Cloud Assembly to a vRealize Orchestrator workflow</description>
+    <position y="50.0" x="100.0"/>
+    <input/>
+    <output/>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="300.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item0" type="task" comparator="0">
+        <display-name>Log vRA Event Topic</display-name>
+        <script encoded="false">/*&#13;
+   vraEvents is an associative array which enables us to map a vRA event from its&#13;
+   dotted notation (e.g. "compute.provision.post") to its friendly name (e.g.&#13;
+   "Compute post provision").&#13;
+*/&#13;
+var vraEvents = {&#13;
+    "blueprint.configuration":                  "Blueprint configuration",&#13;
+    "blueprint.version.configuration":          "Blueprint version configuration",&#13;
+    "compute.allocation.pre":                   "Compute allocation",&#13;
+    "compute.provision.post":                   "Compute post provision",&#13;
+    "compute.removal.post":                     "Compute post removal",&#13;
+    "compute.provision.pre":                    "Compute provision",&#13;
+    "compute.removal.pre":                      "Compute removal",&#13;
+    "compute.reservation.pre":                  "Compute reservation",&#13;
+    "deployment.action.post":                   "Deployment action completed",&#13;
+    "deployment.action.pre":                    "Deployment action requested",&#13;
+    "deployment.request.post":                  "Deployment completed",&#13;
+    "relocation-service.deployment.onboarded":  "Deployment onboarded",&#13;
+    "deployment.request.pre":                   "Deployment requested",&#13;
+    "deployment.resource.action.post":          "Deployment resource action completed",&#13;
+    "deployment.resource.action.pre":           "Deployment resource action requested",&#13;
+    "deployment.resource.request.post":         "Deployment resource completed",&#13;
+    "deployment.resource.request.pre":          "Deployment resource requested",&#13;
+    "disk.allocation.pre":                      "Disk allocation",&#13;
+    "disk.removal.post":                        "Disk.removal.post",&#13;
+    "disk.resize.post":                         "Disk post resize",&#13;
+    "broker.event.log":                         "EventLog",&#13;
+    "kubernetes.cluster.allocation.pre":        "Kubernetes cluster allocation",&#13;
+    "kubernetes.cluster.provision.post":        "Kubernetes cluster post provision",&#13;
+    "kubernetes.cluster.removal.post":          "Kubernetes cluster post removal",&#13;
+    "kubernetes.cluster.provision.pre":         "Kubernetes cluster provision",&#13;
+    "kubernetes.cluster.removal.pre":           "Kubernetes cluster removal",&#13;
+    "load.balancer.provision.post":             "Load balancer post provision",&#13;
+    "network.configure":                        "Network Configure",&#13;
+    "project-service.project.lifecycle":        "Project Lifecycle Event Topic",&#13;
+}&#13;
+&#13;
+// Find out the vRA event (in dotted notation).&#13;
+var vraEvent = System.getContext().getParameter("__metadata_eventTopicId");&#13;
+&#13;
+// Log both the friendly name (e.g. "Compute post provision") and the dotted notation&#13;
+// (e.g. "compute.provision.post") of the vRA event.&#13;
+System.log("vRA event name:   " + vraEvents[vraEvent]);&#13;
+System.log("vRA event name (dotted): " + vraEvent);</script>
+        <in-binding/>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="190.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

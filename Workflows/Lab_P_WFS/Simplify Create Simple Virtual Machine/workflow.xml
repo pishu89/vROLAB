@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="60e4e112-a7e5-4167-bea6-c01b3995a048" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Simplify Create Simple Virtual Machine</display-name>
+    <description>This workflow wraps the workflow called "Create simple virtual machine" in order to reduce the number of inputs thereby simplifying the user experience.</description>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="vmName" type="string"/>
+    </input>
+    <output/>
+    <attrib name="vmNbOfCpus" type="number">
+        <value encoded="n">1.0</value>
+        <description>Number of vCPUs</description>
+    </attrib>
+    <attrib name="vmMemorySize" type="number">
+        <value encoded="n">256.0</value>
+        <description>Amount of vRAM in MB</description>
+    </attrib>
+    <attrib name="vmDiskSize" type="number">
+        <value encoded="n">100.0</value>
+        <description>Virtual disk size in GB</description>
+    </attrib>
+    <attrib name="diskThinProvisioned" type="boolean">
+        <value encoded="n">true</value>
+        <description>Thin provision the disk?</description>
+    </attrib>
+    <attrib name="vmFolder" type="VC:VmFolder">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:group-v1002'&amp;dunesName='VC:VmFolder'</value>
+        <description>VM folder in which to create the new VM</description>
+    </attrib>
+    <attrib name="vmHost" type="VC:HostSystem">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:host-1013'&amp;dunesName='VC:HostSystem'</value>
+        <description>ESXi host on which to run the new VM</description>
+    </attrib>
+    <attrib name="vmNetwork" type="VC:Network">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:network-8001'&amp;dunesName='VC:Network'</value>
+        <description>Network to connect new VM to</description>
+    </attrib>
+    <attrib name="vmDatastore" type="VC:Datastore">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:datastore-5003'&amp;dunesName='VC:Datastore'</value>
+        <description>The datastore in which to create the new VM</description>
+    </attrib>
+    <attrib name="vmResourcePool" type="VC:ResourcePool">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:resgroup-1007'&amp;dunesName='VC:ResourcePool'</value>
+        <description>The resource pool in which to place the new VM</description>
+    </attrib>
+    <attrib name="vmGuestOs" type="VC:VirtualMachineGuestOsIdentifier">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='dosGuest'&amp;dunesName='VC:VirtualMachineGuestOsIdentifier'</value>
+        <description>The guest OS that is installed into the new VM</description>
+    </attrib>
+    <attrib name="newVM" type="VC:VirtualMachine">
+        <value encoded="n"/>
+        <description>The newly created VM</description>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="300.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item0" type="link" linked-workflow-id="BD808080808080808080808080808080A3C280800122528313869552e41805bb1" comparator="0">
+        <display-name>Create VM</display-name>
+        <script encoded="false"></script>
+        <in-binding>
+            <bind name="vmName" type="string" export-name="vmName">
+                <description>Virtual machine name</description>
+            </bind>
+            <bind name="vmGuestOs" type="VC:VirtualMachineGuestOsIdentifier" export-name="vmGuestOs">
+                <description>Guest operating system to use with the virtual machine</description>
+            </bind>
+            <bind name="vmFolder" type="VC:VmFolder" export-name="vmFolder">
+                <description>Virtual machine folder</description>
+            </bind>
+            <bind name="vmResourcePool" type="VC:ResourcePool" export-name="vmResourcePool">
+                <description>Resource pool in which to create the virtual machine</description>
+            </bind>
+            <bind name="vmHost" type="VC:HostSystem" export-name="vmHost">
+                <description>Host on which to create the virtual machine</description>
+            </bind>
+            <bind name="vmDiskSize" type="number" export-name="vmDiskSize">
+                <description>Size of virtual disk in GB</description>
+            </bind>
+            <bind name="vmMemorySize" type="number" export-name="vmMemorySize">
+                <description>Virtual machine's memory size in MB</description>
+            </bind>
+            <bind name="vmNbOfCpus" type="number" export-name="vmNbOfCpus">
+                <description>Number of virtual processors</description>
+            </bind>
+            <bind name="vmNetwork" type="VC:Network" export-name="vmNetwork">
+                <description>The network to connect to</description>
+            </bind>
+            <bind name="vmDatastore" type="VC:Datastore" export-name="vmDatastore">
+                <description>Datastore in which to store the virtual machine files</description>
+            </bind>
+            <bind name="diskThinProvisioned" type="boolean" export-name="diskThinProvisioned">
+                <description>Make disk thin-provisioned?</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="newVM" type="VC:VirtualMachine" export-name="newVM">
+                <description>The newly created VM</description>
+            </bind>
+        </out-binding>
+        <description> </description>
+        <position y="60.0" x="160.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

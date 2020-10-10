@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package>
+<description><![CDATA[You import this package during a lab. It contains a single workflow. You will not need the workflow for this package after performing the lab.]]></description>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='18cf49f6-0894-4a06-a8b7-1ee93c7ee74a'&dunesName='Workflow']]></elm>
+</package>

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="helloWorld" result-type="void" api-version="6.0.0" id="a7a44017-7dde-4128-a378-a3c948dd1ed4" version="0.0.0" allowed-operations="evf" category-name="com.vmware.vroe.hello">
+  <description><![CDATA[Miscellaneous actions for VROE ]]></description>
+  <script encoded="false"><![CDATA[System.log("Hello, world!");]]></script>
+</dunes-script-module>

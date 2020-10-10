@@ -1,0 +1,1 @@
+curVM = allVMs.pop();

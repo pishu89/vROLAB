@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getVcpus" result-type="number" api-version="6.0.0" id="097d8205-eeea-4d61-a13a-824f8382526c" version="0.0.0" category-name="com.plab.vro.vmeduc">
+  <description><![CDATA[Given a VM, this action returns the number of vCPUs in the VM.]]></description>
+  <param n="vm" t="VC:VirtualMachine"><![CDATA[The VM to interrogate]]></param>
+  <script encoded="false"><![CDATA[return vm.config..hardware.numCPU;]]></script>
+</dunes-script-module>

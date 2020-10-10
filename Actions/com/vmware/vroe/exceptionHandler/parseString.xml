@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="parseString" result-type="Properties" api-version="6.0.0" id="9a9deff7-ce4a-4daf-acf8-64c3aa6b035d" version="0.0.0" allowed-operations="vfe" category-name="com.vmware.vroe.exceptionHandler">
+  <description><![CDATA[Given a string as input, this action parses it into a "first part" and a "number part". For example, if the string is "alpha123", then the first part would be "alpha" and the number part would be "123". Special case: If the string is "omega", then  the first part would be "omega" and the number part would be "0".]]></description>
+  <param n="s" t="string"><![CDATA[The string to parse]]></param>
+  <script encoded="false"><![CDATA[var props = new Properties();
+var i;
+var currentChar;
+var firstPart = "";
+var numberPart = "";
+
+for (i = (s.length - 1); i >= 0; i--) {
+    currentChar = s.charAt(i);
+    //if (/\d/.currChar) {
+    if (currentChar >= '0' && currentChar <= '9') {
+        numberPart = currentChar + numberPart;
+    } else {
+        break;      // If the char is NaN, then break
+    }
+}
+
+// Handle some oddball cases...
+if (numberPart == "") { numberPart = 0 }
+if (i == -1) {
+    firstPart = "undefined";
+} else {
+    firstPart = s.slice(0,i+1)
+}
+
+props.put("firstPart", firstPart);
+props.put("numberPart", numberPart);
+props.put("i", i);
+
+return props;]]></script>
+</dunes-script-module>

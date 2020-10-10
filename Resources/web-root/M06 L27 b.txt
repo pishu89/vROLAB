@@ -1,0 +1,1 @@
+return (allVMs.length > 0);

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item2" object-name="workflow:name=generic" id="96230170-e653-4a52-bdbc-91bb24025e1f" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Generate Hostname Using Decision Element</display-name>
+    <description>This workflow illustrates how to generate a hostname and does so using a Decision Schema Element</description>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="location" type="string">
+            <description>Location of machine</description>
+        </param>
+        <param name="businessGroup" type="string">
+            <description>Business Group for the host name</description>
+        </param>
+        <param name="operatingSystem" type="string">
+            <description>OS for host</description>
+        </param>
+        <param name="nextNum" type="number">
+            <description>Sequence number for the host name</description>
+        </param>
+    </input>
+    <output>
+        <param name="hostname" type="string">
+            <description>Generated host name</description>
+        </param>
+    </output>
+    <attrib name="cluster" type="string">
+        <value encoded="n"></value>
+        <description>Name of cluster used in the host name</description>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="34.01415359620099" x="526.1633161590286"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item3" alt-out-name="item6" type="custom-condition" comparator="0">
+        <display-name>Location Boston?</display-name>
+        <script encoded="false">return (location == "Boston");</script>
+        <in-binding>
+            <bind name="location" type="string" export-name="location"/>
+        </in-binding>
+        <out-binding/>
+        <description>Custom decision based on a custom script.</description>
+        <position y="50.0" x="150.0"/>
+    </workflow-item>
+    <workflow-item name="item3" out-name="item4" type="task" comparator="0">
+        <display-name>Set Cluster to CL1</display-name>
+        <script encoded="false">cluster = "CL1";</script>
+        <in-binding>
+            <bind name="cluster" type="string" export-name="cluster"/>
+        </in-binding>
+        <out-binding>
+            <bind name="cluster" type="string" export-name="cluster"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="245.0"/>
+    </workflow-item>
+    <workflow-item name="item4" out-name="item0" type="link" linked-workflow-id="ef816cb9-7a0b-45e8-b53a-5fa1c6de3b65" comparator="0">
+        <display-name>Create hostname with inputs</display-name>
+        <script encoded="false"></script>
+        <in-binding>
+            <bind name="nextNum" type="number" export-name="nextNum">
+                <description>Machine Number</description>
+            </bind>
+            <bind name="cluster" type="string" export-name="cluster">
+                <description>Cluster for hostname</description>
+            </bind>
+            <bind name="businessGroup" type="string" export-name="businessGroup">
+                <description>Business Group for hostname</description>
+            </bind>
+            <bind name="operatingSytem" type="string" export-name="operatingSystem">
+                <description>OS for hostname</description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="outHostname" type="string" export-name="hostname"/>
+        </out-binding>
+        <description> </description>
+        <position y="120.0" x="520.0"/>
+    </workflow-item>
+    <workflow-item name="item6" out-name="item7" alt-out-name="item9" type="custom-condition" comparator="0">
+        <display-name>Location Chicago?</display-name>
+        <script encoded="false">return (location=="Chicago");</script>
+        <in-binding>
+            <bind name="location" type="string" export-name="location"/>
+        </in-binding>
+        <out-binding/>
+        <description>Custom decision based on a custom script.</description>
+        <position y="110.0" x="160.0"/>
+    </workflow-item>
+    <workflow-item name="item7" out-name="item4" type="task" comparator="0">
+        <display-name>Set Cluster to CL2</display-name>
+        <script encoded="false">cluster="CL2";</script>
+        <in-binding>
+            <bind name="cluster" type="string" export-name="cluster"/>
+        </in-binding>
+        <out-binding>
+            <bind name="cluster" type="string" export-name="cluster"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="120.0" x="280.0"/>
+    </workflow-item>
+    <workflow-item name="item8" type="end" end-mode="0" comparator="0">
+        <position y="230.0" x="220.0"/>
+    </workflow-item>
+    <workflow-item name="item9" out-name="item10" alt-out-name="item8" type="custom-condition" comparator="0">
+        <display-name>Location Phoenix?</display-name>
+        <script encoded="false">return (location=="Phoenix");</script>
+        <in-binding>
+            <bind name="location" type="string" export-name="location"/>
+        </in-binding>
+        <out-binding/>
+        <description>Custom decision based on a custom script.</description>
+        <position y="160.0" x="180.0"/>
+    </workflow-item>
+    <workflow-item name="item10" out-name="item4" type="task" comparator="0">
+        <display-name>Set Cluster to CL3</display-name>
+        <script encoded="false">cluster="CL3";</script>
+        <in-binding>
+            <bind name="cluster" type="string" export-name="cluster"/>
+        </in-binding>
+        <out-binding>
+            <bind name="cluster" type="string" export-name="cluster"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="140.0" x="420.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

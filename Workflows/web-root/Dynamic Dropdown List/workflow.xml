@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item0" object-name="workflow:name=generic" id="8f8fb162-875a-4420-a112-a16c277f653e" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Dynamic Dropdown List]]></display-name>
+  <description><![CDATA[This workflow illustrates how to create dynamic dropdown lists.]]></description>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="continent" type="string">
+      <description><![CDATA[Pick a continent]]></description>
+    </param>
+    <param name="country" type="string">
+      <description><![CDATA[Pick a country]]></description>
+    </param>
+  </input>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="50.0" x="240.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

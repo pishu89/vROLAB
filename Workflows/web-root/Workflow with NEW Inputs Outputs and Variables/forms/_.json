@@ -1,0 +1,1 @@
+{"schema":{"myInput":{"id":"myInput","type":{"dataType":"string"},"label":"myInput","constraints":{"required":false}}},"layout":{"pages":[{"id":"page_bqtnqwza","title":"General","sections":[{"id":"section_d64o6thu","fields":[{"id":"myInput","display":"textField"}]}]}]},"itemId":""}

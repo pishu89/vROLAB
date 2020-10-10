@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="915288a5-825f-4430-a1d0-c57ed660f1a8" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Run Command On ESXi Host Via SSH]]></display-name>
+  <description><![CDATA[This workflow illustrates how to run a command on an ESXi host via SSH.]]></description>
+  <position y="60.0" x="60.0"/>
+  <attrib name="cluster" type="VC:ClusterComputeResource" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:domain-c28'&dunesName='VC:ClusterComputeResource']]></value>
+    <description><![CDATA[Cluster of ESXi hosts]]></description>
+  </attrib>
+  <attrib name="esxiHost" type="VC:HostSystem" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[ESXi host on which to run the command]]></description>
+  </attrib>
+  <attrib name="hostname" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Hostname of the ESXi host on which to run the command]]></description>
+  </attrib>
+  <attrib name="port" type="number" read-only="false">
+    <value encoded="n"><![CDATA[22.0]]></value>
+    <description><![CDATA[SSH port number]]></description>
+  </attrib>
+  <attrib name="username" type="string" read-only="false">
+    <value encoded="n"><![CDATA[root]]></value>
+    <description><![CDATA[Name of user to SSH as]]></description>
+  </attrib>
+  <attrib name="password" type="SecureString" read-only="false">
+    <value encoded="n"><![CDATA[8BJ56J4DU77S61X72T65M31R21X276D3ARA562935MCF9CF3CX7E09E64TD9D99BFL34F7608JDC6E03FR217085DQC2B877FY858EE58SF75B132H31E9282UA49D5A4M7F24981L1DEE7A0P454876N1C862E9N2F7F38DOC7E967QF0F62E9JACA1762Q6CAA036XCDC7B00TEC80322G]]></value>
+    <description><![CDATA[Password to use when SSHing into the ESXi host]]></description>
+  </attrib>
+  <attrib name="cmd" type="string" read-only="false">
+    <value encoded="n"><![CDATA[uname -a]]></value>
+    <description><![CDATA[Command to run via SSH]]></description>
+  </attrib>
+  <attrib name="passwordAuthentication" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[true]]></value>
+    <description><![CDATA[Authenticate SSH session using password?]]></description>
+  </attrib>
+  <attrib name="path" type="Path" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Path to the private key]]></description>
+  </attrib>
+  <attrib name="passphrase" type="SecureString" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Private key pass-phrase]]></description>
+  </attrib>
+  <attrib name="encoding" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[The encoding to be used. Leave this field empty to use the default system encoding. (Example values: "UTF-8", "ISO-8859-1"...)]]></description>
+  </attrib>
+  <attrib name="result" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[0 = OK, Negative = Error, Positive = Number of values returned, after error text]]></description>
+  </attrib>
+  <attrib name="errorText" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Error text, if any]]></description>
+  </attrib>
+  <attrib name="outputText" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Result of running the SSH command]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="60.0" x="580.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item3" type="link" linked-workflow-id="7e5ac02b-796d-40a4-bee8-be3c9675f2d5">
+    <display-name><![CDATA[Pick random ESXi host]]></display-name>
+    <in-binding>
+      <bind name="cluster" type="VC:ClusterComputeResource" export-name="cluster"/>
+    </in-binding>
+    <out-binding>
+      <bind name="esxiHost" type="VC:HostSystem" export-name="esxiHost"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="70.0" x="150.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item0" type="link" linked-workflow-id="90808080808080808080808080808080D28080800120523434428525559a3425f">
+    <display-name><![CDATA[Run command via SSH]]></display-name>
+    <in-binding>
+      <bind name="hostNameOrIP" type="string" export-name="hostname"/>
+      <bind name="port" type="number" export-name="port"/>
+      <bind name="username" type="string" export-name="username"/>
+      <bind name="password" type="SecureString" export-name="password"/>
+      <bind name="cmd" type="string" export-name="cmd"/>
+      <bind name="passwordAuthentication" type="boolean" export-name="passwordAuthentication"/>
+      <bind name="path" type="Path" export-name="path"/>
+      <bind name="passphrase" type="SecureString" export-name="passphrase"/>
+      <bind name="encoding" type="string" export-name="encoding"/>
+    </in-binding>
+    <out-binding>
+      <bind name="result" type="number" export-name="result"/>
+      <bind name="errorText" type="string" export-name="errorText"/>
+      <bind name="outputText" type="string" export-name="outputText"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="70.0" x="403.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item2" type="task">
+    <display-name><![CDATA[Get hostname]]></display-name>
+    <script encoded="false"><![CDATA[hostname = esxiHost.name;]]></script>
+    <in-binding>
+      <bind name="esxiHost" type="VC:HostSystem" export-name="esxiHost"/>
+    </in-binding>
+    <out-binding>
+      <bind name="hostname" type="string" export-name="hostname"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="70.0" x="280.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

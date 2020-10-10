@@ -1,0 +1,1 @@
+{"schema":{"nextNum":{"id":"nextNum","type":{"dataType":"decimal"},"label":"nextNum","constraints":{"required":false}}},"layout":{"pages":[{"id":"page_w2ow8pl8","title":"General","sections":[{"id":"section_1d8ng0a9","fields":[{"id":"nextNum","display":"decimalField"}]}]}]},"itemId":""}

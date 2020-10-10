@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="123c3e0b-dc85-4371-ad8f-52da2947d2eb" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Migrate VMs to VM Folder</display-name>
+    <description>Migrate all VMs from one folder to another folder</description>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="inFolder" type="VC:VmFolder">
+            <description>Input folder</description>
+        </param>
+        <param name="outFolder" type="VC:VmFolder">
+            <description>Output folder</description>
+        </param>
+    </input>
+    <output/>
+    <attrib name="allVMs" type="Array/VC:VirtualMachine">
+        <value encoded="n">[]</value>
+        <description>All found VMs</description>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="410.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="task" script-module="com.vmware.library.vc.folder/getVirtualMachineByFolder" comparator="0">
+        <display-name>getVirtualMachineByFolder</display-name>
+        <script encoded="false">//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.vc.folder").getVirtualMachineByFolder(vmFolder);
+</script>
+        <in-binding>
+            <bind name="vmFolder" type="VC:VmFolder" export-name="inFolder">
+                <description></description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="actionResult" type="Array/VC:VirtualMachine" export-name="allVMs"/>
+        </out-binding>
+        <description>Add a note to the workflow schema.</description>
+        <position y="60.0" x="170.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item0" type="foreach" comparator="0">
+        <display-name>Move virtual machine to folder</display-name>
+        <in-binding>
+            <bind name="vm" type="Array/VC:VirtualMachine" export-name="*allVMs">
+                <description>Virtual machine to move</description>
+            </bind>
+            <bind name="folder" type="VC:VmFolder" export-name="outFolder">
+                <description>Destination virtual machine folder</description>
+            </bind>
+        </in-binding>
+        <out-binding/>
+        <reference id="BD80808080808080808080808080808085C280800122528313869552e41805bb1" type="Workflow"/>
+        <position y="60.0" x="275.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

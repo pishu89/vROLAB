@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="62730a73-a3b2-4a34-9d54-9fd9168ca5bb" version="0.0.0" api-version="6.0.0" allowed-operations="evf" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Waiting Using Waiting Timer]]></display-name>
+  <description><![CDATA[This workflow illustrates how to make a workflow wait until a timer expires.]]></description>
+  <position y="100.0" x="150.0"/>
+  <input>
+    <param name="timer_date" type="Date">
+      <description><![CDATA[The time/date to wait until]]></description>
+    </param>
+  </input>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="100.0" x="410.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="waiting-timer">
+    <display-name><![CDATA[Waiting timer]]></display-name>
+    <in-binding>
+      <bind name="timer.date" type="Date" export-name="timer_date">
+        <description><![CDATA[This timer item will wait until date and will continue workflow execution.]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <position y="100.0" x="280.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

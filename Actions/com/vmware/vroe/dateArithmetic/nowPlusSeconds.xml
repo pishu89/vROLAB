@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="nowPlusSeconds" result-type="Date" api-version="6.0.0" id="46eac8fd-81ce-4649-903d-920a5e26655b" version="0.0.0" allowed-operations="vfe" category-name="com.vmware.vroe.dateArithmetic">
+  <param n="seconds" t="number"><![CDATA[Number of seconds to add]]></param>
+  <script encoded="false"><![CDATA[millisecondsPerSecond = 1000;
+secondsPerMinute = 60;
+minutesPerHour = 60;
+hoursPerDay = 24;
+daysPerWeek = 7;
+
+var now = new Date();
+return (new Date(now.getTime() + (seconds * millisecondsPerSecond)));]]></script>
+</dunes-script-module>

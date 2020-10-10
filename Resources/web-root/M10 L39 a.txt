@@ -1,0 +1,3 @@
+const timeout = 60;	// Poll every 60 seconds
+
+taskTrigger = PowerOperationTask.createEndOfTaskTrigger(timeout);

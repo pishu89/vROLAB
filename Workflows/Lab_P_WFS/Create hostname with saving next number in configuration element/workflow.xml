@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item3" object-name="workflow:name=generic" id="40f5f8ab-46b4-462d-84fa-084241ab9626" editor-version="2.0" version="0.0.0" api-version="6.0.0" allowed-operations="vef" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Create hostname with saving next number in configuration element</display-name>
+    <description>Create a hostname using variables from a configuration element.</description>
+    <position y="50.0" x="100.0"/>
+    <input/>
+    <output/>
+    <attrib name="cluster" type="string">
+        <value encoded="n"></value>
+    </attrib>
+    <attrib name="businessGroup" type="string">
+        <value encoded="n"></value>
+    </attrib>
+    <attrib name="operatingSystem" type="string">
+        <value encoded="n"></value>
+    </attrib>
+    <attrib name="hostname" type="string">
+        <value encoded="n"></value>
+        <description>Calculated hostname</description>
+    </attrib>
+    <attrib name="hostnameVariables" type="ConfigurationElement">
+        <value encoded="n">dunes://service.dunes.ch/ConfigurationElement?id='e87fe1b5-dab3-444e-a2f5-68aa683cd8dc'&amp;dunesName='ConfigurationElement'</value>
+    </attrib>
+    <attrib name="nextNum" type="number">
+        <value encoded="n"/>
+    </attrib>
+    <attrib name="step" type="number">
+        <value encoded="n"/>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="605.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="task" comparator="0">
+        <display-name>Generate hostname</display-name>
+        <script encoded="false">var hostname = cluster + "-" + businessGroup + "-" + operatingSystem + "-" + (nextNum+step);</script>
+        <in-binding>
+            <bind name="cluster" type="string" export-name="cluster"/>
+            <bind name="businessGroup" type="string" export-name="businessGroup"/>
+            <bind name="operatingSystem" type="string" export-name="operatingSystem"/>
+            <bind name="nextNum" type="number" export-name="nextNum"/>
+            <bind name="step" type="number" export-name="step"/>
+        </in-binding>
+        <out-binding>
+            <bind name="hostname" type="string" export-name="hostname"/>
+        </out-binding>
+        <description>Generate the hostname</description>
+        <position y="60.0" x="260.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item4" type="task" prototype-id="system-log" interaction="l" comparator="0">
+        <display-name>Log hostname</display-name>
+        <script encoded="false">//Auto-generated script
+System.log(text);</script>
+        <in-binding>
+            <bind name="text" type="string" export-name="hostname">
+                <description>The text to log</description>
+            </bind>
+        </in-binding>
+        <out-binding/>
+        <description>Log the input text to the console log with the level "log".</description>
+        <position y="60.0" x="380.0"/>
+    </workflow-item>
+    <workflow-item name="item3" out-name="item1" type="task" comparator="0">
+        <display-name>Set initial values</display-name>
+        <script encoded="false">cluster = hostnameVariables.getAttributeWithKey("cluster").value;&#13;
+businessGroup = hostnameVariables.getAttributeWithKey("businessGroup").value;&#13;
+operatingSystem = hostnameVariables.getAttributeWithKey("operatingSystem").value;&#13;
+nextNum = hostnameVariables.getAttributeWithKey("nextNum").value;&#13;
+step = hostnameVariables.getAttributeWithKey("step").value;</script>
+        <in-binding>
+            <bind name="hostnameVariables" type="ConfigurationElement" export-name="hostnameVariables"/>
+        </in-binding>
+        <out-binding>
+            <bind name="cluster" type="string" export-name="cluster"/>
+            <bind name="businessGroup" type="string" export-name="businessGroup"/>
+            <bind name="operatingSystem" type="string" export-name="operatingSystem"/>
+            <bind name="nextNum" type="number" export-name="nextNum"/>
+            <bind name="step" type="number" export-name="step"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="170.0"/>
+    </workflow-item>
+    <workflow-item name="item4" out-name="item0" type="task" comparator="0">
+        <display-name>Save next number for hostname</display-name>
+        <script encoded="false">System.log("I got here");&#13;
+hostnameVariables.setAttributeWithKey("nextNum", nextNum + step);</script>
+        <in-binding>
+            <bind name="hostnameVariables" type="ConfigurationElement" export-name="hostnameVariables"/>
+            <bind name="nextNum" type="number" export-name="nextNum"/>
+            <bind name="step" type="number" export-name="step"/>
+        </in-binding>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="457.5"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

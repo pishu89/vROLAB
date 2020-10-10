@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="f198e2ac-7725-470f-b26f-56f858ab9865" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Get locations from resource element</display-name>
+    <position y="50.0" x="100.0"/>
+    <input/>
+    <output/>
+    <attrib name="locationsTextfile" type="ResourceElement">
+        <value encoded="n">dunes://service.dunes.ch/ResourceElement?id='c959d8dc-98ac-4542-b618-352ce15042d7'&amp;dunesName='ResourceElement'</value>
+        <description>Locations file</description>
+    </attrib>
+    <attrib name="locationsAll" type="Array/string">
+        <value encoded="n">[]</value>
+        <description>Array of locations</description>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="60.0" x="440.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="task" comparator="0">
+        <display-name>Fill Array from Textfile</display-name>
+        <script encoded="false">var resElementText = locationsTextfile.getContentAsMimeAttachment().content;&#13;
+locationsAll = [];&#13;
+var locationsAll = resElementText.split(/\r\n|\r|\n/);</script>
+        <in-binding>
+            <bind name="locationsTextfile" type="ResourceElement" export-name="locationsTextfile"/>
+        </in-binding>
+        <out-binding>
+            <bind name="locationsAll" type="Array/string" export-name="locationsAll"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="160.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item0" type="task" comparator="0">
+        <display-name>Display Locations</display-name>
+        <script encoded="false">for (var i=0; i&lt;locationsAll.length; i++) { System.log(locationsAll[i]); }</script>
+        <in-binding>
+            <bind name="locationsAll" type="Array/string" export-name="locationsAll"/>
+        </in-binding>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="280.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>
