@@ -1,0 +1,2 @@
+System.log("Here we could check the status of the asynchronously launched workflow...");
+System.log("... If only we knew how to perform binding. :-(");

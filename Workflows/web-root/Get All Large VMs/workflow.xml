@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="fd3f77b6-cab7-4ad5-b69a-69f3b22d4879" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Get All Large VMs]]></display-name>
+  <description><![CDATA[This workflow illustrates how to find large VMs using a schema-level loop.]]></description>
+  <position y="50.0" x="80.0"/>
+  <input>
+    <param name="cpuCount" type="number">
+      <description><![CDATA[Number of VCPUs for a large VM]]></description>
+    </param>
+  </input>
+  <output>
+    <param name="outLargeVMs" type="Array/VC:VirtualMachine">
+      <description><![CDATA[Output array of large VMs]]></description>
+    </param>
+  </output>
+  <attrib name="allVMs" type="Array/VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[#{##}#]]></value>
+    <description><![CDATA[Array of all VMs]]></description>
+  </attrib>
+  <attrib name="curVM" type="VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Current VM to process]]></description>
+  </attrib>
+  <attrib name="largeVMs" type="Array/VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[#{##}#]]></value>
+    <description><![CDATA[Array of large VMs]]></description>
+  </attrib>
+  <workflow-item name="item1" out-name="item3" type="task">
+    <display-name><![CDATA[Get All VMs]]></display-name>
+    <script encoded="false"><![CDATA[allVMs = VcPlugin.getAllVirtualMachines();
+largeVMs = new Array();]]></script>
+    <in-binding/>
+    <out-binding>
+      <bind name="allVMs" type="Array/VC:VirtualMachine" export-name="allVMs"/>
+      <bind name="largeVMs" type="Array/VC:VirtualMachine" export-name="largeVMs"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="139.0"/>
+  </workflow-item>
+  <workflow-item name="item2" type="end" end-mode="0">
+    <in-binding/>
+    <position y="170.0" x="280.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item4" type="custom-condition" alt-out-name="item9">
+    <display-name><![CDATA[More VMs?]]></display-name>
+    <script encoded="false"><![CDATA[return (allVMs.length > 0);]]></script>
+    <in-binding>
+      <bind name="allVMs" type="Array/VC:VirtualMachine" export-name="allVMs"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="50.0" x="240.0"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item6" type="task">
+    <display-name><![CDATA[Get Next VM]]></display-name>
+    <script encoded="false"><![CDATA[curVM = allVMs.pop();]]></script>
+    <in-binding>
+      <bind name="allVMs" type="Array/VC:VirtualMachine" export-name="allVMs"/>
+    </in-binding>
+    <out-binding>
+      <bind name="curVM" type="VC:VirtualMachine" export-name="curVM"/>
+      <bind name="allVMs" type="Array/VC:VirtualMachine" export-name="allVMs"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.5" x="359.0"/>
+  </workflow-item>
+  <workflow-item name="item6" out-name="item7" type="custom-condition" alt-out-name="item3">
+    <display-name><![CDATA[Large VM?]]></display-name>
+    <script encoded="false"><![CDATA[if (curVM.summary.config.template)
+    return false;
+return (curVM.summary.config.numCpu >= cpuCount);]]></script>
+    <in-binding>
+      <bind name="curVM" type="VC:VirtualMachine" export-name="curVM"/>
+      <bind name="cpuCount" type="number" export-name="cpuCount"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="110.0" x="360.0"/>
+  </workflow-item>
+  <workflow-item name="item7" out-name="item8" type="task">
+    <display-name><![CDATA[Log Large VM]]></display-name>
+    <script encoded="false"><![CDATA[var logMessage = curVM.name + " has " + curVM.summary.config.numCpu + " vCPUs";
+System.log(logMessage);]]></script>
+    <in-binding>
+      <bind name="curVM" type="VC:VirtualMachine" export-name="curVM"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="460.0"/>
+  </workflow-item>
+  <workflow-item name="item8" out-name="item3" type="task">
+    <display-name><![CDATA[Add Large VM to Output]]></display-name>
+    <script encoded="false"><![CDATA[largeVMs.push(curVM);]]></script>
+    <in-binding>
+      <bind name="curVM" type="VC:VirtualMachine" export-name="curVM"/>
+      <bind name="largeVMs" type="Array/VC:VirtualMachine" export-name="largeVMs"/>
+    </in-binding>
+    <out-binding>
+      <bind name="largeVMs" type="Array/VC:VirtualMachine" export-name="largeVMs"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="11.0" x="360.0"/>
+  </workflow-item>
+  <workflow-item name="item9" out-name="item2" type="task">
+    <display-name><![CDATA[Copy Large VMs to Output]]></display-name>
+    <script encoded="false"><![CDATA[outLargeVMs = largeVMs;]]></script>
+    <in-binding>
+      <bind name="largeVMs" type="Array/VC:VirtualMachine" export-name="largeVMs"/>
+    </in-binding>
+    <out-binding>
+      <bind name="outLargeVMs" type="Array/VC:VirtualMachine" export-name="outLargeVMs"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="120.0" x="240.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

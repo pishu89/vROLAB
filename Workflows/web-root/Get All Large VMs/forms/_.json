@@ -1,0 +1,1 @@
+{"schema":{"cpuCount":{"id":"cpuCount","type":{"dataType":"decimal"},"label":"cpuCount","constraints":{"required":false}}},"layout":{"pages":[{"id":"page_up212uvk","title":"General","sections":[{"id":"section_c2j0kfme","fields":[{"id":"cpuCount","display":"decimalField"}]}]}]},"itemId":""}

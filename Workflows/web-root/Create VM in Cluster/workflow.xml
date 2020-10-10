@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item2" object-name="workflow:name=generic" id="1e928bb6-0367-432b-a210-3cce61a088d7" version="0.0.0" api-version="6.0.0" allowed-operations="evf" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Create VM in Cluster]]></display-name>
+  <description><![CDATA[This workflow creates a VM and deploys it to a specific ESXi host.]]></description>
+  <position y="70.0" x="80.0"/>
+  <input>
+    <param name="vmName" type="string">
+      <description><![CDATA[Name of new VM]]></description>
+    </param>
+    <param name="cluster" type="VC:ClusterComputeResource">
+      <description><![CDATA[Cluster to deploy new VM into]]></description>
+    </param>
+  </input>
+  <output>
+    <param name="newVM" type="VC:VirtualMachine">
+      <description><![CDATA[The newly created VM]]></description>
+    </param>
+  </output>
+  <attrib name="vmGuestOs" type="VC:VirtualMachineGuestOsIdentifier" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='dosGuest'&dunesName='VC:VirtualMachineGuestOsIdentifier']]></value>
+    <description><![CDATA[The guest OS that will be installed into the new VM]]></description>
+  </attrib>
+  <attrib name="vmFolder" type="VC:VmFolder" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:group-v22'&dunesName='VC:VmFolder']]></value>
+    <description><![CDATA[VM folder in which to create the new VM ]]></description>
+  </attrib>
+  <attrib name="vmResourcePool" type="VC:ResourcePool" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:resgroup-29'&dunesName='VC:ResourcePool']]></value>
+    <description><![CDATA[The resource pool in which to place the new VM]]></description>
+  </attrib>
+  <attrib name="vmHost" type="VC:HostSystem" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:host-88'&dunesName='VC:HostSystem']]></value>
+    <description><![CDATA[ESXi host on which to run the new VM ]]></description>
+  </attrib>
+  <attrib name="vmDiskSize" type="number" read-only="false">
+    <value encoded="n"><![CDATA[100.0]]></value>
+    <description><![CDATA[Virtual disk size in GB]]></description>
+  </attrib>
+  <attrib name="vmMemorySize" type="number" read-only="false">
+    <value encoded="n"><![CDATA[256.0]]></value>
+    <description><![CDATA[Amount of vRAM in MB]]></description>
+  </attrib>
+  <attrib name="vmNbOfCpus" type="number" read-only="false">
+    <value encoded="n"><![CDATA[1.0]]></value>
+    <description><![CDATA[Number of vCPUs]]></description>
+  </attrib>
+  <attrib name="vmNetwork" type="VC:Network" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:network-83'&dunesName='VC:Network']]></value>
+    <description><![CDATA[Network to connect new VM to]]></description>
+  </attrib>
+  <attrib name="vmDatastore" type="VC:Datastore" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:datastore-733'&dunesName='VC:Datastore']]></value>
+    <description><![CDATA[The datastore in which to create the new VM]]></description>
+  </attrib>
+  <attrib name="diskThinProvisioned" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[true]]></value>
+    <description><![CDATA[Thin provision the disk?]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="70.0" x="470.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="link" linked-workflow-id="BD808080808080808080808080808080A3C280800122528313869552e41805bb1">
+    <display-name><![CDATA[Create VM]]></display-name>
+    <in-binding>
+      <bind name="vmName" type="string" export-name="vmName"/>
+      <bind name="vmGuestOs" type="VC:VirtualMachineGuestOsIdentifier" export-name="vmGuestOs"/>
+      <bind name="vmFolder" type="VC:VmFolder" export-name="vmFolder"/>
+      <bind name="vmResourcePool" type="VC:ResourcePool" export-name="vmResourcePool"/>
+      <bind name="vmHost" type="VC:HostSystem" export-name="vmHost"/>
+      <bind name="vmDiskSize" type="number" export-name="vmDiskSize"/>
+      <bind name="vmMemorySize" type="number" export-name="vmMemorySize"/>
+      <bind name="vmNbOfCpus" type="number" export-name="vmNbOfCpus"/>
+      <bind name="vmNetwork" type="VC:Network" export-name="vmNetwork"/>
+      <bind name="vmDatastore" type="VC:Datastore" export-name="vmDatastore"/>
+      <bind name="diskThinProvisioned" type="boolean" export-name="diskThinProvisioned"/>
+    </in-binding>
+    <out-binding>
+      <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="80.0" x="300.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item1" type="link" linked-workflow-id="7e5ac02b-796d-40a4-bee8-be3c9675f2d5">
+    <display-name><![CDATA[Pick Random ESXi Host from Cluster]]></display-name>
+    <in-binding>
+      <bind name="cluster" type="VC:ClusterComputeResource" export-name="cluster"/>
+    </in-binding>
+    <out-binding>
+      <bind name="esxiHost" type="VC:HostSystem" export-name="vmHost"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="80.0" x="170.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

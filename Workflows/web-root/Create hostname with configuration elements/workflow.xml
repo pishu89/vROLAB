@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="e50489d7-f19b-42bd-bff0-f764176be244" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Create hostname with configuration elements]]></display-name>
+  <description><![CDATA[Create a hostname using variables from a configuration element.]]></description>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="nextNum" type="number">
+      <description><![CDATA[Machine number]]></description>
+    </param>
+  </input>
+  <attrib name="cluster" type="string" read-only="false" conf-id="7a9d1af2-58cf-429e-9961-74baa22e79ef" conf-key="cluster">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="businessGroup" type="string" read-only="false" conf-id="7a9d1af2-58cf-429e-9961-74baa22e79ef" conf-key="businessGroup">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="operatingSystem" type="string" read-only="false" conf-id="7a9d1af2-58cf-429e-9961-74baa22e79ef" conf-key="operatingSystem">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="hostname" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Calculated hostname]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="50.0" x="390.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item2" type="task">
+    <display-name><![CDATA[Generate hostname]]></display-name>
+    <script encoded="false"><![CDATA[var hostname = cluster + "-" + businessGroup + "-" + operatingSystem + "-" + nextNum;]]></script>
+    <in-binding>
+      <bind name="cluster" type="string" export-name="cluster"/>
+      <bind name="businessGroup" type="string" export-name="businessGroup"/>
+      <bind name="operatingSystem" type="string" export-name="operatingSystem"/>
+      <bind name="nextNum" type="number" export-name="nextNum"/>
+    </in-binding>
+    <out-binding>
+      <bind name="hostname" type="string" export-name="hostname"/>
+    </out-binding>
+    <description><![CDATA[Generate the hostname]]></description>
+    <position y="60.0" x="160.0"/>
+  </workflow-item>
+  <workflow-item name="item2" prototype-id="system-log" out-name="item0" type="task" interaction="l">
+    <display-name><![CDATA[Log hostname]]></display-name>
+    <script encoded="false"><![CDATA[//Auto-generated script
+System.log(text);]]></script>
+    <in-binding>
+      <bind name="text" type="string" export-name="hostname">
+        <description><![CDATA[The text to log]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Log the input text to the console log with the level "log".]]></description>
+    <position y="60.0" x="265.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

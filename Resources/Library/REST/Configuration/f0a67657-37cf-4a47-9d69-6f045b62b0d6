@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<endpoint nativeId="77ad3aa2-210e-4165-b0c6-4a89c0edc188" pluginVersion="2.3.4">
+    <properties>
+        <property type="string" name="schema">&lt;com.vmware.o11n.plugin.rest.schema.SchemaRespository&gt;
+  &lt;sources/&gt;
+&lt;/com.vmware.o11n.plugin.rest.schema.SchemaRespository&gt;</property>
+        <property type="string" name="proxyAuthenticationType">NONE</property>
+        <property type="integer" name="operationTimeout">60</property>
+        <property type="string" name="proxySessionMode">Shared Session</property>
+        <property type="bool" name="useProxy">true</property>
+        <property type="string" name="proxyHost"></property>
+        <property type="string" name="url">https://sa-nsxmgr-01.vclass.local/</property>
+        <property type="bool" name="automaticUrlRedirection">true</property>
+        <property type="integer" name="proxyPort">0</property>
+        <property type="password" name="password">vcoencrypted:{riv}QgWrvAZo4uklVUqMlzzoy0hOc4ulnvhrO9lCVBWKKWJK68oug4r8ZC1msryPca5C</property>
+        <property type="string" name="operations">&lt;list&gt;
+  &lt;com.vmware.o11n.plugin.rest.RESTOperation&gt;
+    &lt;id&gt;93e293ae-f904-46c8-8ee4-6ee4eaed9b1b&lt;/id&gt;
+    &lt;name&gt;Logical Switches&lt;/name&gt;
+    &lt;host&gt;
+      &lt;name&gt;sa-nsxmgr-01.vclass.local&lt;/name&gt;
+      &lt;id&gt;f0a67657-37cf-4a47-9d69-6f045b62b0d6&lt;/id&gt;
+      &lt;url&gt;https://sa-nsxmgr-01.vclass.local/&lt;/url&gt;
+      &lt;operations class="tree-map"&gt;
+        &lt;entry&gt;
+          &lt;string&gt;f0a67657-37cf-4a47-9d69-6f045b62b0d6:93e293ae-f904-46c8-8ee4-6ee4eaed9b1b&lt;/string&gt;
+          &lt;com.vmware.o11n.plugin.rest.RESTOperation reference="../../../.."/&gt;
+        &lt;/entry&gt;
+      &lt;/operations&gt;
+      &lt;authentication class="com.vmware.o11n.plugin.rest.HTTPBasicAuthentication"&gt;
+        &lt;type&gt;Basic&lt;/type&gt;
+        &lt;sessionMode&gt;Shared Session&lt;/sessionMode&gt;
+        &lt;username&gt;admin&lt;/username&gt;
+        &lt;password&gt;
+          &lt;crypttext&gt;vcoencrypted:{riv}dO9SDlGiSneFwSXenVrwhAn3N4aisqRIFeNcxCmiY8t95EYkWXodkzuGPL0QmBV9&lt;/crypttext&gt;
+        &lt;/password&gt;
+      &lt;/authentication&gt;
+      &lt;connectionTimeout&gt;30&lt;/connectionTimeout&gt;
+      &lt;operationTimeout&gt;60&lt;/operationTimeout&gt;
+      &lt;hostVerification&gt;true&lt;/hostVerification&gt;
+      &lt;proxyHost&gt;&lt;/proxyHost&gt;
+      &lt;proxyPort&gt;0&lt;/proxyPort&gt;
+      &lt;schemaRepo&gt;
+        &lt;sources/&gt;
+      &lt;/schemaRepo&gt;
+      &lt;cleanHttpContextPerRequest&gt;false&lt;/cleanHttpContextPerRequest&gt;
+      &lt;automaticUrlRedirection&gt;true&lt;/automaticUrlRedirection&gt;
+      &lt;proxyAuthentication class="com.vmware.o11n.plugin.rest.NoneAuthentication"&gt;
+        &lt;type&gt;NONE&lt;/type&gt;
+        &lt;sessionMode&gt;Shared Session&lt;/sessionMode&gt;
+        &lt;isValid&gt;true&lt;/isValid&gt;
+        &lt;validationMessage&gt;&lt;/validationMessage&gt;
+      &lt;/proxyAuthentication&gt;
+    &lt;/host&gt;
+    &lt;urlTemplate&gt;/api/v1/logical-switches&lt;/urlTemplate&gt;
+    &lt;method&gt;GET&lt;/method&gt;
+    &lt;inParameters/&gt;
+    &lt;pathParamsCount&gt;0&lt;/pathParamsCount&gt;
+    &lt;headerParameters/&gt;
+    &lt;defaultContentType&gt;&lt;/defaultContentType&gt;
+    &lt;commonHeaders/&gt;
+    &lt;supportedAcceptHeaderMediaTypes/&gt;
+    &lt;supportedContentTypes/&gt;
+    &lt;mandatoryPathParamNames/&gt;
+    &lt;mandatoryQueryParamNames/&gt;
+    &lt;mandatoryHeaderParamNames/&gt;
+  &lt;/com.vmware.o11n.plugin.rest.RESTOperation&gt;
+&lt;/list&gt;</property>
+        <property type="bool" name="hostVerification">true</property>
+        <property type="string" name="name">sa-nsxmgr-01.vclass.local</property>
+        <property type="string" name="authenticationType">Basic</property>
+        <property type="string" name="sessionMode">Shared Session</property>
+        <property type="integer" name="connectionTimeout">30</property>
+        <property type="string" name="username">admin</property>
+    </properties>
+</endpoint>

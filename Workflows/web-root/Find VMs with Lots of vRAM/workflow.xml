@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="d5437bf6-b841-43e3-ac07-9a994574fb2e" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Find VMs with Lots of vRAM]]></display-name>
+  <description><![CDATA[Report "large" VMs]]></description>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="largeVram" type="number">
+      <description><![CDATA[How much vRAM does a "large" VM have?]]></description>
+    </param>
+  </input>
+  <attrib name="allVms" type="Array/VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[#{##}#]]></value>
+    <description><![CDATA[All the VMs known to the vCenter plug-in]]></description>
+  </attrib>
+  <attrib name="largeVms" type="Array/VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[#{##}#]]></value>
+    <description><![CDATA[All the large VMs]]></description>
+  </attrib>
+  <attrib name="oneVm" type="VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[We "pop" one VM off the allVms stack/array at a time]]></description>
+  </attrib>
+  <attrib name="amountVramInMbInVm" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[The actual amount of vRAM in the VM]]></description>
+  </attrib>
+  <workflow-item name="item1" out-name="item3" type="task" script-module="com.vmware.library.vc.vm/getAllVMs">
+    <display-name><![CDATA[Get all VMs]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.vc.vm").getAllVMs();
+]]></script>
+    <in-binding/>
+    <out-binding>
+      <bind name="actionResult" type="Array/VC:VirtualMachine" export-name="allVms"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="60.0" x="160.0"/>
+  </workflow-item>
+  <workflow-item name="item2" type="end" end-mode="0">
+    <in-binding/>
+    <position y="110.0" x="307.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item4" type="custom-condition" alt-out-name="item2">
+    <display-name><![CDATA[More VMs?]]></display-name>
+    <script encoded="false"><![CDATA[return(allVms.length > 0);]]></script>
+    <in-binding>
+      <bind name="allVms" type="Array/VC:VirtualMachine" export-name="allVms"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="50.5" x="266.0"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item6" type="task">
+    <display-name><![CDATA[Get one VM]]></display-name>
+    <script encoded="false"><![CDATA[oneVm = allVms.pop();]]></script>
+    <in-binding>
+      <bind name="allVms" type="Array/VC:VirtualMachine" export-name="allVms"/>
+    </in-binding>
+    <out-binding>
+      <bind name="oneVm" type="VC:VirtualMachine" export-name="oneVm"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="383.5"/>
+  </workflow-item>
+  <workflow-item name="item5" out-name="item3" type="task">
+    <display-name><![CDATA[Find large VMs]]></display-name>
+    <script encoded="false"><![CDATA[var message;
+
+if (oneVm.summary.config.template) {
+    message = "TEMPLATE:  ";
+} else {
+    if (amountVramInMbInVm >= largeVram) {
+        message = "LARGE:  ";
+        largeVms.push(oneVm);
+    } else {
+        message = "NOT LARGE:  ";
+    }
+
+}
+message = message + "Name: " + oneVm.name + ",vRAM: " + amountVramInMbInVm;
+
+System.log(message);
+]]></script>
+    <in-binding>
+      <bind name="oneVm" type="VC:VirtualMachine" export-name="oneVm"/>
+      <bind name="amountVramInMbInVm" type="number" export-name="amountVramInMbInVm"/>
+      <bind name="largeVram" type="number" export-name="largeVram"/>
+      <bind name="largeVms" type="Array/VC:VirtualMachine" export-name="largeVms"/>
+    </in-binding>
+    <out-binding>
+      <bind name="largeVms" type="Array/VC:VirtualMachine" export-name="largeVms"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="120.0" x="497.0"/>
+  </workflow-item>
+  <workflow-item name="item6" out-name="item5" type="task" script-module="com.vmware.vroe.vm.hw/getVram">
+    <display-name><![CDATA[getVram]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.vroe.vm.hw").getVram(vm);
+]]></script>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="oneVm"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="number" export-name="amountVramInMbInVm"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="60.0" x="491.375"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

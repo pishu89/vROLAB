@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item3" object-name="workflow:name=generic" id="da888796-9b3f-4b09-a4b0-49c03b42b1ae" version="0.0.0" api-version="6.0.0" allowed-operations="evf" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Handling a User Interaction Timeout]]></display-name>
+  <description><![CDATA[This workflow illustrates how to handle a timeout from a user interaction schema element.]]></description>
+  <position y="50.0" x="43.0"/>
+  <input>
+    <param name="numberOfVcpus" type="number"/>
+    <param name="amountVdisk" type="number"/>
+    <param name="amountVram" type="number"/>
+    <param name="vmName" type="string">
+      <description><![CDATA[Name of new virtual machine]]></description>
+    </param>
+    <param name="seconds" type="number">
+      <description><![CDATA[How many seconds before the User Interaction times out?]]></description>
+    </param>
+  </input>
+  <attrib name="defaultVcpus" type="number" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVcpus"/>
+  <attrib name="defaultVram" type="number" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVram"/>
+  <attrib name="defaultVdisk" type="number" read-only="false" conf-id="898b914d-5e8b-4599-8045-f6d610a0c19e" conf-key="defaultVdisk"/>
+  <attrib name="vcpus" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vram" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vdisk" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="newVM" type="VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[The newly created VM]]></description>
+  </attrib>
+  <attrib name="security_group" type="LdapGroup" read-only="false">
+    <value encoded="n"><![CDATA[vclass.local\ENG-CA-Admins]]></value>
+    <description><![CDATA[Approvers security group.]]></description>
+  </attrib>
+  <attrib name="security_assignees" type="Array/LdapUser" read-only="false">
+    <value encoded="n"><![CDATA[#{##}#]]></value>
+    <description><![CDATA[Not used]]></description>
+  </attrib>
+  <attrib name="security_assignee_groups" type="Array/LdapGroup" read-only="false">
+    <value encoded="n"><![CDATA[#{##}#]]></value>
+    <description><![CDATA[Not used]]></description>
+  </attrib>
+  <attrib name="timeout_date" type="Date" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Timeout for the User Interaction]]></description>
+  </attrib>
+  <attrib name="doesApproverApprove" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+    <description><![CDATA[Do you approve the request?]]></description>
+  </attrib>
+  <attrib name="errorCode" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Message from thrown exception]]></description>
+  </attrib>
+  <workflow-item name="item1" type="end" end-mode="0">
+    <in-binding/>
+    <position y="174.5" x="360.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item8" type="custom-condition" alt-out-name="item7">
+    <display-name><![CDATA[VM Too big?]]></display-name>
+    <script encoded="false"><![CDATA[var isVmTooBig = false;
+
+System.log("vcpus:         " + vcpus);
+System.log("defaultVcpus:  " + defaultVcpus);
+System.log("vVram:         " + vram);
+System.log("defaultVram:   " + defaultVram);
+System.log("vdisk:         " + vdisk);
+System.log("defaultVdisk:  " + defaultVdisk);
+
+if (vcpus > defaultVcpus) { 
+    System.warn("Too many vCPUs");
+    isVmTooBig = true;
+}
+
+if (vram > defaultVram) {
+    System.warn("Too much vRAM");
+    isVmTooBig = true;
+}
+
+if (vdisk > defaultVdisk) {
+    System.warn("Too much vDisk");
+    isVmTooBig = true;
+}
+
+return isVmTooBig;]]></script>
+    <in-binding>
+      <bind name="defaultVcpus" type="number" export-name="defaultVcpus"/>
+      <bind name="defaultVram" type="number" export-name="defaultVram"/>
+      <bind name="defaultVdisk" type="number" export-name="defaultVdisk"/>
+      <bind name="vcpus" type="number" export-name="vcpus"/>
+      <bind name="vram" type="number" export-name="vram"/>
+      <bind name="vdisk" type="number" export-name="vdisk"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="50.0" x="320.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item9" type="task">
+    <display-name><![CDATA[Copy inputs to variables]]></display-name>
+    <script encoded="false"><![CDATA[vcpus = numberOfVcpus;
+vram = amountVram;
+vdisk = amountVdisk;]]></script>
+    <in-binding>
+      <bind name="numberOfVcpus" type="number" export-name="numberOfVcpus"/>
+      <bind name="amountVram" type="number" export-name="amountVram"/>
+      <bind name="amountVdisk" type="number" export-name="amountVdisk"/>
+    </in-binding>
+    <out-binding>
+      <bind name="vcpus" type="number" export-name="vcpus"/>
+      <bind name="vram" type="number" export-name="vram"/>
+      <bind name="vdisk" type="number" export-name="vdisk"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="120.0"/>
+  </workflow-item>
+  <workflow-item name="item4" type="end" end-mode="0">
+    <in-binding/>
+    <position y="49.5" x="699.0"/>
+  </workflow-item>
+  <workflow-item name="item5" out-name="item7" type="condition" alt-out-name="item4" comparator="0">
+    <display-name><![CDATA[Request approved?]]></display-name>
+    <script encoded="false"><![CDATA[// Generated by the system, cannot be edited
+return (doesApproverApprove === true);]]></script>
+    <in-binding>
+      <bind name="doesApproverApprove" type="boolean" export-name="doesApproverApprove"/>
+    </in-binding>
+    <out-binding/>
+    <condition name="doesApproverApprove" type="boolean" comparator="0" label="null"/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="50.0" x="549.0"/>
+  </workflow-item>
+  <workflow-item name="item7" out-name="item1" type="link" linked-workflow-id="a87dab23-7a5c-4fb5-a420-7342426007c9">
+    <display-name><![CDATA[Create VM]]></display-name>
+    <in-binding>
+      <bind name="vmName" type="string" export-name="vmName"/>
+      <bind name="numberOfVcpus" type="number" export-name="numberOfVcpus"/>
+      <bind name="amountVram" type="number" export-name="amountVram"/>
+      <bind name="amountVdisk" type="number" export-name="amountVdisk"/>
+    </in-binding>
+    <out-binding>
+      <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="123.0" x="320.0"/>
+  </workflow-item>
+  <workflow-item name="item8" out-name="item5" catch-name="item10" throw-bind-name="errorCode" type="input">
+    <display-name><![CDATA[Get Approval]]></display-name>
+    <in-binding>
+      <bind name="security.group" type="LdapGroup" export-name="security_group">
+        <description><![CDATA[Any user member of this group will be authorized to fill in this form.]]></description>
+      </bind>
+      <bind name="security.assignees" type="Array/LdapUser" export-name="security_assignees">
+        <description><![CDATA[Any user from this array of users will be authorized to fill in this form]]></description>
+      </bind>
+      <bind name="security.assignee.groups" type="Array/LdapGroup" export-name="security_assignee_groups">
+        <description><![CDATA[Any user member of any of the groups will be authorized to fill in this form.]]></description>
+      </bind>
+      <bind name="timeout.date" type="Date" export-name="timeout_date">
+        <description><![CDATA[If not null, this input item will wait until date and will continue workflow execution.]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="doesApproverApprove" type="boolean" export-name="doesApproverApprove"/>
+      <bind name="vcpus" type="number" export-name="vcpus"/>
+      <bind name="vram" type="number" export-name="vram"/>
+      <bind name="vdisk" type="number" export-name="vdisk"/>
+    </out-binding>
+    <presentation/>
+    <description><![CDATA[Use this element to set up a user interaction.]]></description>
+    <position y="61.5" x="440.0"/>
+  </workflow-item>
+  <workflow-item name="item9" out-name="item2" type="task" script-module="info.vvork.dateArithmetic/XnowPlusSeconds">
+    <display-name><![CDATA[XnowPlusSeconds]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("info.vvork.dateArithmetic").XnowPlusSeconds(seconds);
+]]></script>
+    <in-binding>
+      <bind name="seconds" type="number" export-name="seconds"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="Date" export-name="timeout_date"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="61.0" x="219.5"/>
+  </workflow-item>
+  <workflow-item name="item10" out-name="item11" type="task">
+    <display-name><![CDATA[Handle exception]]></display-name>
+    <script encoded="false"><![CDATA[System.error("------------------------------------");
+System.error("errorCode: " + errorCode);
+System.error("------------------------------------");]]></script>
+    <in-binding>
+      <bind name="errorCode" type="string" export-name="errorCode"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="122.5" x="440.0"/>
+  </workflow-item>
+  <workflow-item name="item11" type="end" end-mode="0">
+    <in-binding/>
+    <position y="112.5" x="600.0"/>
+  </workflow-item>
+  <presentation>
+    <p-param name="numberOfVcpus">
+      <desc><![CDATA[numberOfVcpus]]></desc>
+    </p-param>
+    <p-param name="amountVdisk">
+      <desc><![CDATA[amountVdisk]]></desc>
+    </p-param>
+    <p-param name="amountVram">
+      <desc><![CDATA[amountVram]]></desc>
+    </p-param>
+    <p-param name="vmName">
+      <desc><![CDATA[Name of new virtual machine]]></desc>
+    </p-param>
+    <p-param name="seconds">
+      <desc><![CDATA[How many seconds before the User Interaction times out?]]></desc>
+    </p-param>
+  </presentation>
+</workflow>

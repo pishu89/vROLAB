@@ -1,0 +1,72 @@
+/*
+   vraEvents is an associative array which enables us to map a vRA event from its
+   dotted notation (e.g. "compute.provision.post") to its friendly name (e.g.
+   "Compute post provision").
+*/
+var vraEvents = {
+    "blueprint.configuration":                  "Blueprint configuration",
+    "blueprint.version.configuration":          "Blueprint version configuration",
+    "compute.allocation.pre":                   "Compute allocation",
+    "compute.provision.post":                   "Compute post provision",
+    "compute.removal.post":                     "Compute post removal",
+    "compute.provision.pre":                    "Compute provision",
+    "compute.removal.pre":                      "Compute removal",
+    "compute.reservation.pre":                  "Compute reservation",
+    "deployment.action.post":                   "Deployment action completed",
+    "deployment.action.pre":                    "Deployment action requested",
+    "deployment.request.post":                  "Deployment completed",
+    "relocation-service.deployment.onboarded":  "Deployment onboarded",
+    "deployment.request.pre":                   "Deployment requested",
+    "deployment.resource.action.post":          "Deployment resource action completed",
+    "deployment.resource.action.pre":           "Deployment resource action requested",
+    "deployment.resource.request.post":         "Deployment resource completed",
+    "deployment.resource.request.pre":          "Deployment resource requested",
+    "disk.allocation.pre":                      "Disk allocation",
+    "disk.removal.post":                        "Disk.removal.post",
+    "disk.resize.post":                         "Disk post resize",
+    "broker.event.log":                         "EventLog",
+    "kubernetes.cluster.allocation.pre":        "Kubernetes cluster allocation",
+    "kubernetes.cluster.provision.post":        "Kubernetes cluster post provision",
+    "kubernetes.cluster.removal.post":          "Kubernetes cluster post removal",
+    "kubernetes.cluster.provision.pre":         "Kubernetes cluster provision",
+    "kubernetes.cluster.removal.pre":           "Kubernetes cluster removal",
+    "load.balancer.provision.post":             "Load balancer post provision",
+    "network.configure":                        "Network Configure",
+    "project-service.project.lifecycle":        "Project Lifecycle Event Topic",
+}
+
+// Find out the vRA event (in dotted notation).
+var vraEvent = System.getContext().getParameter("__metadata_eventTopicId");
+
+// Log both the friendly name (e.g. "Compute post provision") and the dotted notation
+// (e.g. "compute.provision.post") of the vRA event.
+System.log("vRA event name:   " + vraEvents[vraEvent]);
+System.log("vRA event name (dotted): " + vraEvent);
+
+
+// Create a variable we'll use to get info from the payload sent by vRA.
+var customProperties = new Properties();
+
+// Get a handle on the custom properties that were passed in via the payload by vRA.
+customProperties = inputProperties.get("customProperties");
+
+if (customProperties == null) {
+    // Not all vRA events have customProperties (e.g. deployment.action.pre does not)
+    // This event does not have custom properties, so do nothing.
+} else {
+    // This event _does_ have custom properties, so let's extract them.
+
+    // Extract two custom properties defined by vRA:
+    flavorMapping = customProperties.get("flavor");
+    imageMapping = customProperties.get("image");
+
+    // Extract two user-defined custom properties.
+    userDefinedString = customProperties.get("userDefinedString");
+    userDefinedNumber = customProperties.get("userDefinedNumber");
+
+    // Log the custom properties.
+    System.log("flavorMapping: " + flavorMapping);
+    System.log("imageMapping: " + imageMapping);
+    System.log("userDefinedString: " + userDefinedString);
+    System.log("userDefinedNumber: " + userDefinedNumber);
+}

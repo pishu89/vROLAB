@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="c8e6eac4-17aa-4af3-99bb-01eda9472c10" version="0.0.0" api-version="6.0.0" allowed-operations="evf" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Event Waiter]]></display-name>
+  <description><![CDATA[This workflow illustrates how to make a workflow wait until another workflow wakes it up. See also the workflow called "Event Sender".]]></description>
+  <position y="128.8984375" x="219.0"/>
+  <input>
+    <param name="eventName" type="string">
+      <description><![CDATA[Name of event to wait on]]></description>
+    </param>
+    <param name="endDate" type="Date">
+      <description><![CDATA[Date/time event times out]]></description>
+    </param>
+  </input>
+  <attrib name="isExternalEvent" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+    <description><![CDATA[Is the event external to vRO]]></description>
+  </attrib>
+  <attrib name="success" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+    <description><![CDATA[Was the event received]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <position y="128.8984375" x="479.0"/>
+  </workflow-item>
+  <workflow-item name="item1" prototype-id="wait-custom-event" out-name="item0" content-mode="x" throw-bind-name="errorCode" type="task">
+    <display-name><![CDATA[Wait for custom event]]></display-name>
+    <script encoded="false"><![CDATA[// Auto-generated script
+var eventType = isExternalEvent ? 'external' : 'internal';
+var eventCustom = null;
+if (eventName != null) {
+	eventCustom = System.waitCustomEventUntil(eventType,eventName,endDate);
+}
+success = (eventCustom != null) ;]]></script>
+    <in-binding>
+      <bind name="isExternalEvent" type="boolean" export-name="isExternalEvent">
+        <description><![CDATA[External custom event]]></description>
+      </bind>
+      <bind name="eventName" type="string" export-name="eventName">
+        <description><![CDATA[Custom event name]]></description>
+      </bind>
+      <bind name="endDate" type="Date" export-name="endDate">
+        <description><![CDATA[Expiration date]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="success" type="boolean" export-name="success">
+        <description><![CDATA[Return true if the custom event was received before 'endDate' is reached.]]></description>
+      </bind>
+    </out-binding>
+    <description><![CDATA[Wait for custom event.]]></description>
+    <position y="139.41051483154297" x="309.01136779785156"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

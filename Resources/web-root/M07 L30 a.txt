@@ -1,0 +1,3 @@
+var resElementText = locationsTextfile.getContentAsMimeAttachment().content;
+locationsAll = [];
+var locationsAll = resElementText.split(/\r\n|\r|\n/);

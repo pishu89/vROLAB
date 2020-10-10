@@ -1,0 +1,1 @@
+{"schema":{"vmName":{"id":"vmName","type":{"dataType":"string"},"label":"vmName","constraints":{"required":false}}},"layout":{"pages":[{"id":"page_c5exoqp9","title":"General","sections":[{"id":"section_1itejmaj","fields":[{"id":"vmName","display":"textField"}]}]}]},"itemId":""}

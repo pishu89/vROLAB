@@ -1,0 +1,17 @@
+// Imagine that this scriptable task is doing something more than just sleeping.
+System.sleep(1000);
+
+var i;
+var j;
+
+for (i = 1 ; i <= 10; i++) {
+    System.log("i=" + i);
+}
+
+j=1;
+j=2;
+j=3;
+j=4;
+j=5;
+
+System.log("counter=" + counter);

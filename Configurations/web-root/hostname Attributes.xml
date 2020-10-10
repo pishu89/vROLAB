@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config-element id="7a9d1af2-58cf-429e-9961-74baa22e79ef" version="0.0.0">
+  <display-name><![CDATA[hostname Attributes]]></display-name>
+  <atts>
+    <att name="cluster" type="string" read-only="false">
+      <value encoded="n"><![CDATA[CL4]]></value>
+      <description><![CDATA[Name of cluster to use in hostname]]></description>
+    </att>
+    <att name="businessGroup" type="string" read-only="false">
+      <value encoded="n"><![CDATA[RD]]></value>
+      <description><![CDATA[Name of business group to use in hostname]]></description>
+    </att>
+    <att name="operatingSystem" type="string" read-only="false">
+      <value encoded="n"><![CDATA[Win]]></value>
+      <description><![CDATA[Name of operating system to use in hostname]]></description>
+    </att>
+  </atts>
+</config-element>

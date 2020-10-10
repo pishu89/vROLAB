@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="f79e052a-0545-43d4-b24b-9f69c06b999c" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Invoke a Workflow Synchronously]]></display-name>
+  <description><![CDATA[This workflow illustrates how to call a workflow synchronously.]]></description>
+  <position y="50.0" x="100.0"/>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="326.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="link" linked-workflow-id="82421ec1-e37a-4c99-aa99-4e31877c628a">
+    <display-name><![CDATA[Child workflow]]></display-name>
+    <in-binding/>
+    <out-binding/>
+    <description><![CDATA[ ]]></description>
+    <position y="60.0" x="170.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

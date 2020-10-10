@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="nowPlusDays" result-type="Date" api-version="6.0.0" id="4eac9e5a-29f5-4bbd-b5e7-3fccbf94cd5a" version="0.0.0" allowed-operations="vfe" category-name="com.vmware.vroe.dateArithmetic">
+  <description><![CDATA[Given a number of days as input, this action returns a Date object set to NOW plus that many days.]]></description>
+  <param n="days" t="number"><![CDATA[Number of days to add]]></param>
+  <script encoded="false"><![CDATA[millisecondsPerSecond = 1000;
+secondsPerMinute = 60;
+minutesPerHour = 60;
+hoursPerDay = 24;
+daysPerWeek = 7;
+
+var now = new Date();
+return (new Date(now.getTime() + (days * hoursPerDay * minutesPerHour * secondsPerMinute * millisecondsPerSecond)));]]></script>
+</dunes-script-module>

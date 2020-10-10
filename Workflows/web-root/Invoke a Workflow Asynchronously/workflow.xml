@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="7a0902dc-c78b-4aed-938a-9a4f6565b9aa" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Invoke a Workflow Asynchronously]]></display-name>
+  <description><![CDATA[This workflow illustrates how to call a workflow asynchronously.]]></description>
+  <position y="50.0" x="100.0"/>
+  <attrib name="wfToken" type="WorkflowToken" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[Workflow token returned by asynchronous workflow invocation]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.801509396444175" x="423.967543005304"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item2" type="task" launched-workflow-id="82421ec1-e37a-4c99-aa99-4e31877c628a">
+    <display-name><![CDATA[Child workflow]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+var workflowToLaunch = Server.getWorkflowWithId("82421ec1-e37a-4c99-aa99-4e31877c628a");
+if (workflowToLaunch == null) {
+	throw "Workflow not found";
+}
+
+var workflowParameters = new Properties();
+wfToken = workflowToLaunch.execute(workflowParameters);
+]]></script>
+    <in-binding/>
+    <out-binding>
+      <bind name="wfToken" type="WorkflowToken" export-name="wfToken"/>
+    </out-binding>
+    <description><![CDATA[Start an asynchronous workflow.]]></description>
+    <position y="59.0" x="170.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item0" type="task">
+    <display-name><![CDATA[Scriptable task]]></display-name>
+    <script encoded="false"><![CDATA[System.log("Here we could check the status of the asynchronously launched workflow...");
+System.log("... If only we knew how to perform binding. :-(");]]></script>
+    <in-binding/>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="285.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

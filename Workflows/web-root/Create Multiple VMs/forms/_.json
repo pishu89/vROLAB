@@ -1,0 +1,1 @@
+{"schema":{"numberOfVmsToCreate":{"id":"numberOfVmsToCreate","type":{"dataType":"decimal"},"label":"numberOfVmsToCreate","constraints":{"required":false}}},"layout":{"pages":[{"id":"page_58vlbf5a","title":"General","sections":[{"id":"section_kt120lv6","fields":[{"id":"numberOfVmsToCreate","display":"decimalField"}]}]}]},"itemId":""}

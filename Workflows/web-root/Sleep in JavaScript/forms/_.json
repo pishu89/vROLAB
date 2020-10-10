@@ -1,0 +1,1 @@
+{"schema":{"secondsToSleep":{"id":"secondsToSleep","type":{"dataType":"decimal"},"label":"secondsToSleep","constraints":{"required":false}}},"layout":{"pages":[{"id":"page_5ixepmqs","title":"General","sections":[{"id":"section_ofj1gk3z","fields":[{"id":"secondsToSleep","display":"decimalField"}]}]}]},"itemId":""}

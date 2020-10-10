@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="f677016d-78d0-4a06-8fe7-8fc093ae52d1" editor-version="2.0" version="0.0.0" api-version="6.0.0" allowed-operations="evf" restartMode="1" resumeFromFailedMode="0">
+    <display-name>Create a VM and Power It On Using JavaScript</display-name>
+    <description>This workflow illustrates how to create a virtual machine power it on. Behind that, the real purpose of this workflow is to teach binding.
+
+This version of the workflow shows how to power on the VM using Javascript.</description>
+    <position y="10.0" x="50.0"/>
+    <input>
+        <param name="vmName" type="string">
+            <description>Name of new virtual machine</description>
+        </param>
+        <param name="numberOfVcpus" type="number">
+            <description>Number of vCPUs</description>
+        </param>
+        <param name="amountVram" type="number">
+            <description>Amount of virtual RAM in MB</description>
+        </param>
+        <param name="amountVdisk" type="number">
+            <description>Amount of virtual disk in GB</description>
+        </param>
+    </input>
+    <output/>
+    <attrib name="host" type="VC:HostSystem">
+        <value encoded="n">dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:host-1013'&amp;dunesName='VC:HostSystem'</value>
+        <description>ESXi host to boot VM on</description>
+    </attrib>
+    <attrib name="powerOnTask" type="VC:Task">
+        <value encoded="n"/>
+        <description>Task for tracking power on operation</description>
+    </attrib>
+    <attrib name="newVM" type="VC:VirtualMachine">
+        <value encoded="n"/>
+        <description>The new virtual machine</description>
+    </attrib>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="10.0" x="440.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item2" type="link" linked-workflow-id="a92bf5de-32e5-4554-8701-f61502965466" comparator="0">
+        <display-name>Create VM</display-name>
+        <in-binding>
+            <bind name="vmName" type="string" export-name="vmName"/>
+            <bind name="numberOfVcpus" type="number" export-name="numberOfVcpus"/>
+            <bind name="amountVram" type="number" export-name="amountVram"/>
+            <bind name="amountVdisk" type="number" export-name="amountVdisk"/>
+        </in-binding>
+        <out-binding>
+            <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+        </out-binding>
+        <description> </description>
+        <position y="20.0" x="140.0"/>
+    </workflow-item>
+    <workflow-item name="item2" out-name="item0" type="task" comparator="0">
+        <display-name>Power On VM</display-name>
+        <script encoded="false">powerOnTask = newVM.powerOnVM_Task(host);
+
+// powerOnTask can be used here in this scriptable task or potentially in any other
+// schema element to check in on the power on operation. For instance:
+//
+// powerOnTask.state         &lt;-- A string that tells whether the power on operation is
+//                               still running, complete, failed, canceled, etc.
+//
+// powerOnTask.cancelTask()  &lt;-- Cancels the power on operation.
+//
+// See VCTask and VC:Task in the API Explorer for more info.</script>
+        <in-binding>
+            <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+            <bind name="host" type="VC:HostSystem" export-name="host"/>
+        </in-binding>
+        <out-binding>
+            <bind name="powerOnTask" type="VC:Task" export-name="powerOnTask"/>
+        </out-binding>
+        <description>Simple task with custom script capability.</description>
+        <position y="20.5" x="265.0"/>
+    </workflow-item>
+    <presentation/>
+</ns2:workflow>

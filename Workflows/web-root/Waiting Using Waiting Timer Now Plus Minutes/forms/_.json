@@ -1,0 +1,1 @@
+{"schema":{"minutes":{"id":"minutes","type":{"dataType":"decimal"},"label":"minutes","constraints":{"required":false}}},"layout":{"pages":[{"id":"page_3dg0f3it","title":"General","sections":[{"id":"section_ig9htnvy","fields":[{"id":"minutes","display":"decimalField"}]}]}]},"itemId":"","workflowId":"1c932dfd-59aa-4c89-879c-1c8433bf0563"}

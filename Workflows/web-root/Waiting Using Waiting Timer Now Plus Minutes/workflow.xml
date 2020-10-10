@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item2" object-name="workflow:name=generic" id="1c932dfd-59aa-4c89-879c-1c8433bf0563" version="0.0.0" api-version="6.0.0" allowed-operations="evf" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Waiting Using Waiting Timer Now Plus Minutes]]></display-name>
+  <description><![CDATA[This workflow illustrates how to make a workflow wait until a timer expires. Whereas the workflow called "Waiting Using Waiting Timer" asks the workflow caller to set a Date object, this workflow asks the caller for a number of minutes and the timer is set to NOW + MINUTES.]]></description>
+  <position y="120.0" x="120.0"/>
+  <input>
+    <param name="minutes" type="number">
+      <description><![CDATA[How many minutes to wait]]></description>
+    </param>
+  </input>
+  <attrib name="timer_date" type="Date" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[The time/date to wait until]]></description>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="120.0" x="510.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item0" type="waiting-timer">
+    <display-name><![CDATA[Waiting timer]]></display-name>
+    <in-binding>
+      <bind name="timer.date" type="Date" export-name="timer_date">
+        <description><![CDATA[This timer item will wait until date and will continue workflow execution.]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <position y="120.0" x="380.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item1" type="task" script-module="com.vmware.vroe.dateArithmetic/nowPlusMinutes">
+    <display-name><![CDATA[nowPlusMinutes]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.vroe.dateArithmetic").nowPlusMinutes(minutes);
+]]></script>
+    <in-binding>
+      <bind name="minutes" type="number" export-name="minutes"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="Date" export-name="timer_date"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="130.0" x="210.0"/>
+  </workflow-item>
+  <presentation>
+    <p-param name="minutes">
+      <desc><![CDATA[How many minutes to wait]]></desc>
+    </p-param>
+  </presentation>
+</workflow>

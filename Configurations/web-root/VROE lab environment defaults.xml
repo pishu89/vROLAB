@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config-element id="898b914d-5e8b-4599-8045-f6d610a0c19e" version="0.0.0">
+  <display-name><![CDATA[VROE lab environment defaults]]></display-name>
+  <description><![CDATA[This configuration element contains defaults for which host to deploy VMs onto, which VM folder to deploy VMs into, which datastore to deploy VMs into, etc.]]></description>
+  <atts>
+    <att name="defaultVmFolder" type="VC:VmFolder" read-only="false">
+      <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:group-v1002'&dunesName='VC:VmFolder']]></value>
+      <description><![CDATA[Default VM folder to install VMs into]]></description>
+    </att>
+    <att name="defaultEsxiHost" type="VC:HostSystem" read-only="false">
+      <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:host-1013'&dunesName='VC:HostSystem']]></value>
+      <description><![CDATA[Default ESXi host to install VMs onto]]></description>
+    </att>
+    <att name="defaultDatastore" type="VC:Datastore" read-only="false">
+      <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:datastore-5002'&dunesName='VC:Datastore']]></value>
+      <description><![CDATA[Default datastore to install VMs into]]></description>
+    </att>
+    <att name="defaultNetwork" type="VC:Network" read-only="false">
+      <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:network-7001'&dunesName='VC:Network']]></value>
+      <description><![CDATA[Default network to plug VMs into]]></description>
+    </att>
+    <att name="defaultResourcePool" type="VC:ResourcePool" read-only="false">
+      <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='sa-vcsa-01.vclass.local%2Cid:resgroup-1007'&dunesName='VC:ResourcePool']]></value>
+      <description><![CDATA[Default resource pool to install VMs into]]></description>
+    </att>
+    <att name="defaultVcpus" type="number" read-only="false">
+      <value encoded="n"><![CDATA[1.0]]></value>
+      <description><![CDATA[Default number of vCPUs]]></description>
+    </att>
+    <att name="defaultVram" type="number" read-only="false">
+      <value encoded="n"><![CDATA[256.0]]></value>
+      <description><![CDATA[Default amount of vRAM in MB]]></description>
+    </att>
+    <att name="defaultVdisk" type="number" read-only="false">
+      <value encoded="n"><![CDATA[10.0]]></value>
+      <description><![CDATA[Default size of virtual disk in GB]]></description>
+    </att>
+    <att name="defaultThinProvision" type="boolean" read-only="false">
+      <value encoded="n"><![CDATA[true]]></value>
+      <description><![CDATA[Default policy whether to thin provision virtual disks (true=thin, false=thick)]]></description>
+    </att>
+    <att name="defaultDelayBetweenVms" type="number" read-only="false">
+      <value encoded="n"><![CDATA[15.0]]></value>
+      <description><![CDATA[Default amount of time to wait between creating VMs (in seconds)]]></description>
+    </att>
+    <att name="defaultGuestOs" type="VC:VirtualMachineGuestOsIdentifier" read-only="false">
+      <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='dosGuest'&dunesName='VC:VirtualMachineGuestOsIdentifier']]></value>
+      <description><![CDATA[Default guest OS that will be installed into new VM2]]></description>
+    </att>
+  </atts>
+</config-element>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item3" object-name="workflow:name=generic" id="9eb43f14-f819-4908-a183-16224867df80" version="0.0.0" api-version="6.0.0" allowed-operations="evf" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Workflow that Needs an Exception Handler]]></display-name>
+  <description><![CDATA[This workflow illustrates how to use an exception handler.]]></description>
+  <position y="65.0" x="50.0"/>
+  <input>
+    <param name="numberOfVcpus" type="number">
+      <description><![CDATA[Number of vCPUs]]></description>
+    </param>
+    <param name="amountVdisk" type="number">
+      <description><![CDATA[Amount of vDisk (in GB)]]></description>
+    </param>
+    <param name="amountVram" type="number">
+      <description><![CDATA[Amount of vRAM (in MB)]]></description>
+    </param>
+    <param name="vmName" type="string">
+      <description><![CDATA[Name of new virtual machine]]></description>
+    </param>
+  </input>
+  <attrib name="newVM" type="VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[The newly created VM]]></description>
+  </attrib>
+  <attrib name="vmNameRW" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[A read/write variable for storing the name of the VM]]></description>
+  </attrib>
+  <workflow-item name="item1" type="end" end-mode="0">
+    <in-binding/>
+    <position y="64.5" x="450.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item7" type="task">
+    <display-name><![CDATA[Copy input to variable]]></display-name>
+    <script encoded="false"><![CDATA[vmNameRW = vmName;]]></script>
+    <in-binding>
+      <bind name="vmName" type="string" export-name="vmName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="vmNameRW" type="string" export-name="vmNameRW"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="75.0" x="141.0"/>
+  </workflow-item>
+  <workflow-item name="item7" out-name="item1" type="link" linked-workflow-id="a87dab23-7a5c-4fb5-a420-7342426007c9">
+    <display-name><![CDATA[Create VM]]></display-name>
+    <in-binding>
+      <bind name="vmName" type="string" export-name="vmNameRW"/>
+      <bind name="numberOfVcpus" type="number" export-name="numberOfVcpus"/>
+      <bind name="amountVram" type="number" export-name="amountVram"/>
+      <bind name="amountVdisk" type="number" export-name="amountVdisk"/>
+    </in-binding>
+    <out-binding>
+      <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="75.0" x="275.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

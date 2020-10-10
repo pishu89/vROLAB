@@ -1,0 +1,1 @@
+{"schema":{"largeVram":{"id":"largeVram","type":{"dataType":"decimal"},"label":"largeVram"}},"layout":{"pages":[{"id":"page_tlmzfm0k","title":"General","sections":[{"id":"section_j88ytlhy","fields":[{"id":"largeVram","display":"decimalField"}]}]}]},"itemId":""}

@@ -1,0 +1,2 @@
+System.error(errorCode);
+System.error("We could supplement the exception message here.");
